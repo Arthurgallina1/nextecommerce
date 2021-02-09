@@ -1,16 +1,22 @@
-import { withKnobs, text } from '@storybook/addon-knobs'
 import { Story, Meta } from '@storybook/react/types-6-0'
 import Main from '.'
 
 export default {
   title: 'Main',
   component: Main,
-  decorators: [withKnobs]
+  args: {
+    title: 'This title is default for every story!!',
+    description: 'This description is default for every story!!'
+  }
 } as Meta
 
-export const Basic: Story = () => (
-  <Main
-    title={text('Title', 'React na veia')}
-    description={text('Description', 'TS, Next e SC')}
-  />
-)
+export const Basic: Story = (args) => <Main {...args} />
+Basic.args = {
+  title: 'New React Valeus for storybook',
+  description: 'For this story only'
+}
+
+export const Default: Story = (args) => <Main {...args} />
+Default.args = {
+  title: 'This is a default '
+}
