@@ -8,9 +8,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>React Adv Boiler</title>
-        <link rel="shortcut icon" href="/public/favicon.ico" />
-        <link rel="apple-touch-icon" href="/public/favicon.ico" />
+        <link rel="shortcut icon" href="/img/man.svg" />
+        <link rel="apple-touch-icon" href="/img/man.svg" />
         <meta name="description" content="Next and TS Boilerplate" />
+        <link rel="manifest" href="/manifest.json" />
       </Head>
       <GlobalStyles />
       <Component {...pageProps} />
