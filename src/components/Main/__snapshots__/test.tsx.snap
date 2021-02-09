@@ -1,9 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Main /> should render the heading 1`] = `
-<main>
-  <h1>
+<main
+  class="styles__Wrapper-sc-1cs6c8-0 famtAr"
+>
+  <img
+    alt="imagem do simbolo da vercel"
+    class="styles__Logo-sc-1cs6c8-1 igVxLV"
+    src="/public/vercel.svg"
+  />
+  <h1
+    class="styles__Title-sc-1cs6c8-2 ebCDxR"
+  >
     react avançado
   </h1>
+  <h2
+    class="styles__Description-sc-1cs6c8-3 cbUlOs"
+  >
+    TS, React, Next e Styled Comps
+  </h2>
+  <img
+    alt="desenvolvedor sentado"
+    class="styles__Illustration-sc-1cs6c8-4 dfmHMd"
+    src="/img/"
+  />
 </main>
 `;
