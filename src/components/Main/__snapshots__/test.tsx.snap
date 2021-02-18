@@ -2,26 +2,26 @@
 
 exports[`<Main /> should render the heading 1`] = `
 <main
-  class="styles__Wrapper-sc-1cs6c8-0 famtAr"
+  class="sc-bdfBwQ fMuptA"
 >
   <img
     alt="imagem do simbolo da vercel"
-    class="styles__Logo-sc-1cs6c8-1 igVxLV"
+    class="sc-gsTCUz iCHfWn"
     src="/public/vercel.svg"
   />
   <h1
-    class="styles__Title-sc-1cs6c8-2 ebCDxR"
+    class="sc-dlfnbm bvOMYk"
   >
-    react avançado
+    React Avançado
   </h1>
   <h2
-    class="styles__Description-sc-1cs6c8-3 cbUlOs"
+    class="sc-hKgILt fOqoNE"
   >
-    TS, React, Next e Styled Comps
+    TypeScript, ReactJS, NextJS e Styled Components
   </h2>
   <img
     alt="desenvolvedor sentado"
-    class="styles__Illustration-sc-1cs6c8-4 dfmHMd"
+    class="sc-eCssSg cZKeir"
     src="/img/"
   />
 </main>
