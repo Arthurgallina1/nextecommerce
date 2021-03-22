@@ -17,3 +17,11 @@ export default {
 } as Meta
 
 export const Default: Story<BannerProps> = (args) => <Banner {...args} />
+
+export const WithRibbon: Story<BannerProps> = (args) => <Banner {...args} />
+
+WithRibbon.args = {
+  ribbon: '20% OFF',
+  ribbonSize: 'normal',
+  ribbonColor: 'primary'
+}
