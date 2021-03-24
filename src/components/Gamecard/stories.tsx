@@ -9,11 +9,14 @@ export default {
     developer: 'Rockstar games',
     img: 'https://source.unsplash.com/user/willianjusten/1042x580',
     price: 'R$ 235,00'
+  },
+  argTypes: {
+    onFav: { action: 'clicked' }
   }
 } as Meta
 
 export const Basic: Story<GamecardProps> = (args) => (
-  <div style={{ width: '31rem' }}>
+  <div style={{ width: '30rem' }}>
     <Gamecard {...args} />
   </div>
 )
