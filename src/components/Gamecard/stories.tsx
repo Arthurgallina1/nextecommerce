@@ -13,7 +13,7 @@ export default {
 } as Meta
 
 export const Basic: Story<GamecardProps> = (args) => (
-  <div style={{ width: '30rem' }}>
+  <div style={{ width: '31rem' }}>
     <Gamecard {...args} />
   </div>
 )
