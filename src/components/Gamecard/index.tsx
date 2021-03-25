@@ -5,6 +5,7 @@ import {
 } from '@styled-icons/material-outlined'
 import * as S from './styles'
 import Button from '../Button'
+import Ribbon, { RibbonColors, RibbonSizes } from '../Ribbon'
 
 export type GamecardProps = {
   title: string
@@ -13,6 +14,9 @@ export type GamecardProps = {
   price: string
   promotionalPrice?: string
   favorite?: boolean
+  ribbon?: React.ReactNode
+  ribbonColor?: RibbonColors
+  ribbonSize?: RibbonSizes
   onFav?: () => void
 }
 
@@ -23,9 +27,17 @@ const Gamecard = ({
   price,
   promotionalPrice,
   favorite = false,
+  ribbon,
+  ribbonColor = 'primary',
+  ribbonSize = 'small',
   onFav
 }: GamecardProps) => (
   <S.Wrapper>
+    {!!ribbon && (
+      <Ribbon color={ribbonColor} size={ribbonSize}>
+        {ribbon}
+      </Ribbon>
+    )}
     <S.ImageBox>
       <img src={img} alt={title} />
     </S.ImageBox>
