@@ -33,7 +33,7 @@ export default {
   parameters: {
     layour: 'fullscreen',
     backgrounds: {
-      default: 'dark'
+      default: 'won-dark'
     }
   }
 } as Meta

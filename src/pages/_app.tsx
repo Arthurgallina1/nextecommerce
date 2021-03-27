@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <Head>
-        <title>React Adv Boiler</title>
+        <title>Power House E-Commerce</title>
         <link rel="shortcut icon" href="/img/man.svg" />
         <link rel="apple-touch-icon" href="/img/man.svg" />
         <meta name="description" content="Next and TS Boilerplate" />
