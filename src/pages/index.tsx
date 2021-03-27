@@ -24,10 +24,10 @@ export function getStaticProps() {
       mostPopularHighlight: highlightMock,
       mostPopularGames: bannersMock,
       upcommingGames: bannersMock,
-      upcomingHighLight: highlightMock,
+      upcommingHighligth: highlightMock,
       freeGames: bannersMock,
       upcommingMoreGames: bannersMock,
-      freeGamesHighlight: highlightMock
+      freeHighligth: highlightMock
     }
   }
 }
