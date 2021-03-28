@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import mockAxios from 'axios'
+import axios from 'axios'
 import { getPost, addPost } from '../../services/get'
 import Tester from './index'
 import { renderWithContext } from 'utils/tests/helpers'
@@ -7,6 +7,8 @@ import { renderWithContext } from 'utils/tests/helpers'
 type wrapperType = {
   children: React.ReactNode
 }
+
+const mockAxios = axios as jest.Mocked<typeof axios>
 
 describe('tests', () => {
   it('should render with context', () => {
@@ -35,6 +37,10 @@ describe('tests', () => {
     mockAxios.post.mockImplementationOnce(() => Promise.resolve({ data: post }))
     const images = await addPost(post)
     expect(images).toEqual(post)
+    expect(mockAxios.post).toHaveBeenCalledWith(
+      'https://jsonplaceholder.typicode.com/posts',
+      post
+    )
     // expect(mockAxios.get).toHaveBeenCalledTimes(1)
   })
 })
