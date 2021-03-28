@@ -5,17 +5,21 @@ export type CheckboxProps = {
   onCheck?: (status: boolean) => void
   label?: string
   labelFor?: string
+  isChecked?: boolean
   color?: 'black' | 'white'
+  value?: string | ReadonlyArray<string> | number
 } & InputHTMLAttributes<HTMLInputElement>
 
 const Checkbox = ({
   onCheck,
   label = '',
   labelFor = '',
-  color = 'black'
+  color = 'white',
+  isChecked = false,
+  value,
+  ...props
 }: CheckboxProps) => {
-  const [checked, setChecked] = useState(false)
-  //controlled (state)
+  const [checked, setChecked] = useState(isChecked)
 
   const onChange = () => {
     const status = !checked
@@ -28,7 +32,14 @@ const Checkbox = ({
 
   return (
     <S.Wrapper>
-      <S.Input id={labelFor} type="checkbox" onChange={onChange} />
+      <S.Input
+        id={labelFor}
+        type="checkbox"
+        onChange={onChange}
+        defaultChecked={isChecked}
+        value={value}
+        {...props}
+      />
       {label && (
         <S.Label htmlFor={labelFor} aria-labelledby={labelFor} color={color}>
           {label}
