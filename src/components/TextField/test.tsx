@@ -1,6 +1,6 @@
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-
+import { Email } from '@styled-icons/material-outlined'
 import { renderWithTheme } from 'utils/tests/helpers'
 
 import TextField from '.'
@@ -60,19 +60,56 @@ describe('<TextField />', () => {
     })
   })
 
-  it('Should render a red border when error is true', async () => {
+  it('Should render an icon', async () => {
     renderWithTheme(
       <TextField
         label="TextField"
         labelFor="TextField"
         id="TextField"
-        value="1234"
-        error
+        icon={<Email data-testid="icon" />}
       />
     )
-    expect(screen.getByDisplayValue('1234').parentElement).toHaveStyle({
-      'box-shadow': '0 0 0.5rem #E50914'
-    })
+    expect(screen.getByTestId('icon')).toBeInTheDocument()
+  })
+
+  it('Renders with error', () => {
+    const { container } = renderWithTheme(
+      <TextField
+        icon={<Email data-testid="icon" />}
+        label="TextField"
+        labelFor="TextField"
+        error="Error message"
+      />
+    )
+
+    expect(screen.getByText('Error message')).toBeInTheDocument()
+
+    expect(container.firstChild).toMatchSnapshot()
+  })
+
+  it('Renders with Icon on the right side', () => {
+    renderWithTheme(
+      <TextField icon={<Email data-testid="icon" />} iconPosition="right" />
+    )
+
+    expect(screen.getByTestId('icon').parentElement?.parentElement).toHaveStyle(
+      {
+        flexDirection: 'row-reverse'
+      }
+    )
+  })
+
+  it('Renders is correctly disabled ', () => {
+    renderWithTheme(
+      <TextField
+        label="TextField"
+        labelFor="TextField"
+        id="TextField"
+        disabled
+      />
+    )
+    const input = screen.getByRole('textbox')
+    expect(input).toHaveAttribute('disabled', '')
   })
 
   it('Is accessible by tab', () => {

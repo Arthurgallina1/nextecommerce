@@ -3,23 +3,37 @@ import { TextFieldProps } from '.'
 
 const wrapperModifiers = {
   error: (theme: DefaultTheme) => css`
-    box-shadow: 0 0 0.5rem ${theme.colors.error};
+    ${InputWrapper} {
+      border-color: ${theme.colors.red};
+    }
+    ${Icon},
+    ${Label} {
+      color: ${theme.colors.red};
+    }
   `
 }
 
-export const InputWrapper = styled.div<Pick<TextFieldProps, 'error'>>`
-  ${({ theme, error }) => css`
+type InputWrapperProps = Pick<TextFieldProps, 'iconPosition'>
+
+export const InputWrapper = styled.div<InputWrapperProps>`
+  ${({ theme, iconPosition }) => css`
     display: flex;
     background: ${theme.colors.lightGray};
     border-radius: 0.2rem;
     padding: 0 ${theme.spacings.xsmall};
     border: 0.2rem solid;
     border-color: ${theme.colors.lightGray};
-
-    ${error && wrapperModifiers.error(theme)}
+    flex-direction: ${iconPosition === 'right' ? 'row-reverse' : 'row'};
     &:focus-within {
       box-shadow: 0 0 0.5rem ${theme.colors.primary};
     }
+  `}
+`
+
+export const Error = styled.p`
+  ${({ theme }) => css`
+    color: ${theme.colors.red};
+    font-size: ${theme.font.sizes.xsmall};
   `}
 `
 
@@ -28,7 +42,7 @@ export const Input = styled.input`
     color: ${theme.colors.black};
     font-family: ${theme.font.family};
     font-size: ${theme.font.sizes.medium};
-    padding: ${theme.spacings.xxsmall} 0;
+    padding: ${theme.spacings.xxsmall};
     background: transparent;
     border: 0;
     outline: none;
@@ -44,4 +58,19 @@ export const Label = styled.label`
   `}
 `
 
-export const Wrapper = styled.div``
+export const Wrapper = styled.div<Pick<TextFieldProps, 'error'>>`
+  ${({ theme, error }) => css`
+    ${error && wrapperModifiers.error(theme)};
+  `}
+`
+
+export const Icon = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    width: 2.2rem;
+    color: ${theme.colors.gray};
+    & > svg {
+      width: 100%;
+    }
+  `}
+`
