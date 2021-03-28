@@ -8,6 +8,7 @@ import Heading from 'components/Heading'
 import Menu from 'components/Menu'
 import GameCardSlider from 'components/GameCardSlider'
 import BannerSlider from 'components/Bannerslider'
+import Tester from 'components/Tester'
 
 import * as S from './styles'
 
@@ -44,6 +45,7 @@ const Home = ({
 
     <S.SectionNews>
       <Container>
+        <Tester />
         <Heading lineLeft lineColor="secondary">
           News
         </Heading>
