@@ -1,9 +1,9 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { renderWithTheme } from 'utils/tests/helpers'
 
 import Auth from './index'
 
-describe('Auth', () => {
+describe('<Auth />', () => {
   it('should render logos, title, subtitle and children', () => {
     renderWithTheme(
       <Auth title="Test Title">
