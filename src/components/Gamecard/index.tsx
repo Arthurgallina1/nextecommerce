@@ -39,7 +39,7 @@ const Gamecard = ({
       </Ribbon>
     )}
     <S.ImageBox>
-      <img src={img} alt={title} />
+      <img src={img} alt={title} loading="lazy" />
     </S.ImageBox>
     <S.Content>
       <S.Info>
