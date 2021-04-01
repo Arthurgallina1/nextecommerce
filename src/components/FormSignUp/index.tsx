@@ -5,7 +5,7 @@ import Button from 'components/Button'
 import TextField from 'components/TextField'
 import { FormWrapper, FormLink } from 'components/Form'
 
-const FormSignIn = () => (
+const FormSignUp = () => (
   <FormWrapper>
     <form>
       <TextField
@@ -43,4 +43,4 @@ const FormSignIn = () => (
   </FormWrapper>
 )
 
-export default FormSignIn
+export default FormSignUp

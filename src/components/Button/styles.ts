@@ -2,7 +2,7 @@ import styled, { css, DefaultTheme } from 'styled-components'
 import { darken } from 'polished'
 import { ButtonProps } from '.'
 
-type WrappersProps = {
+export type WrappersProps = {
   hasIcon: boolean
 } & Pick<ButtonProps, 'size' | 'fullWidth' | 'minimal'>
 // type WrappersProps = Omit<ButtonProps, 'children'>
