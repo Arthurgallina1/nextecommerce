@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link'
-import { Email, Lock } from '@styled-icons/material-outlined'
+import { Email, Lock, AccountCircle } from '@styled-icons/material-outlined'
 import Button from 'components/Button'
 
 import TextField from 'components/TextField'
@@ -9,6 +9,12 @@ import * as S from './styles'
 const FormSignIn = () => (
   <S.Wrapper>
     <form>
+      <TextField
+        name="name"
+        placeholder="Name"
+        type="name"
+        icon={<AccountCircle />}
+      />
       <TextField
         name="email"
         placeholder="Email"
@@ -21,13 +27,18 @@ const FormSignIn = () => (
         type="password"
         icon={<Lock />}
       />
-      <S.ForgotPassword href="#">Forgot your password?</S.ForgotPassword>
+      <TextField
+        name="confirm-password"
+        placeholder="Confirm password"
+        type="password"
+        icon={<Email />}
+      />
 
       <Button size="large" fullWidth>
-        Sign in now
+        Sign up now
       </Button>
       <S.FormLink>
-        Don't have an account? <Link href="/sign-up">Sign up</Link>
+        Already have an account? <Link href="/sign-in">Sign In</Link>
       </S.FormLink>
     </form>
   </S.Wrapper>
