@@ -1,34 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next E-commerce
 
-## Getting Started
 
-First, run the development server:
+## WIP
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+This is Next e-commerce under progress.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- Login & Auth
+- Cart
+- Wishlist
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Techs
 
-## Learn More
+### Front-end
+* <img src="https://d33wubrfki0l68.cloudfront.net/07af715eab99df113bc0fe926dcfb3bd5b4e465c/9a37d/img/tech/typescript.svg" alt="alt text" width="22" height="22"> Typescript
+* <img src="https://d33wubrfki0l68.cloudfront.net/c9c0cb655eaa23c6b678aadf7698db19acdc32c2/e3003/img/tech/nextjs.svg" alt="alt text" width="22" height="22"> Next.js
+* <img src="https://d33wubrfki0l68.cloudfront.net/9dfc11f3415a34c8d942f5f86a90aef79d431ffa/a074c/img/tech/graphql.svg" alt="alt text" width="22" height="22"> GraphQL
+* <img src="https://d33wubrfki0l68.cloudfront.net/32d23faf39242160063c03836baed91954d051f0/decb4/img/tech/jest.svg" alt="alt text" width="22" height="22"> Jest
+* <img src="https://d33wubrfki0l68.cloudfront.net/3cb6bba943330449c7b2baeecd2a73b30ae2a328/88260/img/tech/apollo.svg" alt="alt text" width="22" height="22"> Apollo
+* <img src="https://d33wubrfki0l68.cloudfront.net/d8252a1a8dedc92cdb69ee5c022cd91c67e3af4e/51dd8/img/tech/rtl.svg" alt="alt text" width="22" height="22"> Testing Library
+* <img src="https://d33wubrfki0l68.cloudfront.net/eb4093fae6d1e1d692a391773da8da72852c2988/8a1d0/img/tech/storybook.svg" alt="alt text" width="22" height="22"> Storybook
+* Styled-Components
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Back-end
+* <img src="https://d33wubrfki0l68.cloudfront.net/47a156c37e9247659497b03f71ded2fda721764b/38c01/img/tech/strapi.svg" alt="alt text" width="22" height="22">  Strapi
