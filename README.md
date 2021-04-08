@@ -3,7 +3,7 @@
 
 ## WIP
 
-This is Next e-commerce under progress.
+This is Next e-commerce in progress.
 
 ## Features
 
