@@ -16,23 +16,57 @@ describe('Gallery', () => {
 
   it('should handle open/close modal', () => {
     renderWithTheme(<Gallery items={mockItems.slice(0, 2)} />)
-    // selecionar menu
     const modal = screen.getByLabelText('modal')
-    //ver se ta escondido
     expect(modal.getAttribute('aria-hidden')).toBe('true')
     expect(modal).toHaveStyle({ opacity: 0 })
-    // clicar no abrir
     fireEvent.click(
       screen.getByRole('button', { name: /Thumb - Gallery Image 1/i })
     )
-    // // ver se abriu
     expect(modal.getAttribute('aria-hidden')).toBe('false')
     expect(modal).toHaveStyle({ opacity: 1 })
+  })
 
-    // //clicar no fechar e verificar se fechou
-    // fireEvent.click(screen.getByLabelText(/close menu/i))
-    // // ver se abriu
-    // expect(modal.getAttribute('aria-hidden')).toBe('true')
-    // expect(modal).toHaveStyle({ opacity: 0 })
+  it('should handle close modal when overlay or button clicked', () => {
+    renderWithTheme(<Gallery items={mockItems.slice(0, 2)} />)
+
+    // selecionar o nosso modal
+    const modal = screen.getByLabelText('modal')
+
+    // clicar no botão de abrir o modal e verificar se ele abriu
+    fireEvent.click(
+      screen.getByRole('button', { name: /Thumb - Gallery Image 1/i })
+    )
+
+    // clicar para fechar o modal
+    fireEvent.click(screen.getByRole('button', { name: /close modal/i }))
+
+    expect(modal.getAttribute('aria-hidden')).toBe('true')
+    expect(modal).toHaveStyle({ opacity: 0 })
+  })
+
+  it('should handle close modal when ESC clicked', () => {
+    const { container } = renderWithTheme(
+      <Gallery items={mockItems.slice(0, 2)} />
+    )
+    const modal = screen.getByLabelText('modal')
+
+    fireEvent.click(
+      screen.getByRole('button', { name: /Thumb - Gallery Image 1/i })
+    )
+    fireEvent.keyUp(container, { key: 'Escape' })
+    expect(modal.getAttribute('aria-hidden')).toBe('true')
+    expect(modal).toHaveStyle({ opacity: 0 })
+  })
+
+  it('should open modal with selected image', async () => {
+    const { container } = renderWithTheme(
+      <Gallery items={mockItems.slice(0, 2)} />
+    )
+
+    fireEvent.click(
+      screen.getByRole('button', { name: /Thumb - Gallery Image 1/i })
+    )
+    const img = await screen.findByRole('img', { name: /Gallery Image 1/i })
+    expect(img.parentElement?.parentElement).toHaveClass('slick-active')
   })
 })
