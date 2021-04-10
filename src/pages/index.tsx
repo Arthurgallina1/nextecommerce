@@ -23,10 +23,10 @@ export function getStaticProps() {
       newGames: bannersMock,
       mostPopularHighlight: highlightMock,
       mostPopularGames: bannersMock,
-      upcommingGames: bannersMock,
-      upcommingHighligth: highlightMock,
+      upcomingGames: bannersMock,
+      upcomingHighligth: highlightMock,
       freeGames: bannersMock,
-      upcommingMoreGames: bannersMock,
+      upcomingMoreGames: bannersMock,
       freeHighligth: highlightMock
     }
   }
