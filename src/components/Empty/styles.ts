@@ -1,9 +1,30 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const Wrapper = styled.main``
+export const Wrapper = styled.main`
+  max-width: 33rem;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  text-align: center;
+  margin: 0 auto;
+`
 
-export const Image = styled.img``
+export const Image = styled.img`
+  max-width: 100%;
+`
 
-export const Title = styled.h2``
+export const Title = styled.h2`
+  ${({ theme }) => css`
+    color: ${theme.colors.primary};
+    font-size: ${theme.font.sizes.xxlarge};
+  `}
+`
 
-export const Description = styled.p``
+export const Description = styled.p`
+  ${({ theme }) => css`
+    color: ${theme.colors.white};
+    font-size: ${theme.font.sizes.large};
+    font-weight: ${theme.font.light};
+    margin-bottom: ${theme.spacings.medium};
+  `}
+`
