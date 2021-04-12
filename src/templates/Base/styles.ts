@@ -23,5 +23,8 @@ export const Wrapper = styled.div`
 `
 
 export const Content = styled.div`
-  flex: 1 0 auto;
+  ${({ theme }) => css`
+    margin-top: ${theme.spacings.xlarge};
+    flex: 1 0 auto;
+  `}
 `
