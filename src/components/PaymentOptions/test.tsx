@@ -1,15 +1,15 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { renderWithTheme } from 'utils/tests/helpers'
 
-import PaymentOptions from './index'
+import PaymentOptions from '.'
+import cards from './mock'
 
-describe('PaymentOptions', () => {
-  it('should render the heading', () => {
-    const { container } = render(<PaymentOptions />)
-    expect(
-      screen.getByRole('heading', { name: /PaymentOptions/i })
-    ).toBeInTheDocument()
+describe('<PaymentOptions />', () => {
+  it('should render the saved card options and the add new card button', () => {
+    renderWithTheme(<PaymentOptions cards={cards} handlePayment={jest.fn} />)
 
-    expect(container.firstChild).toMatchSnapshot()
+    expect(screen.getByLabelText(/4326/)).toBeInTheDocument()
+    expect(screen.getByLabelText(/1234/)).toBeInTheDocument()
+    expect(screen.getByText(/add new credit card/i)).toBeInTheDocument()
   })
-
 })
