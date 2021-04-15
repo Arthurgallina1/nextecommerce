@@ -10,10 +10,22 @@ const wrapperModifiers = {
     ${Label} {
       color: ${theme.colors.red};
     }
+  `,
+  disabled: (theme: DefaultTheme) => css`
+    ${Label},
+    ${Input},
+    ${Icon} {
+      cursor: not-allowed;
+      color: ${theme.colors.gray};
+      &::placeholder {
+        color: currentColor;
+      }
+    }
   `
 }
 
 type InputWrapperProps = Pick<TextFieldProps, 'iconPosition'>
+type WrapperProps = Pick<TextFieldProps, 'disabled'> & { error?: boolean }
 
 export const InputWrapper = styled.div<InputWrapperProps>`
   ${({ theme, iconPosition }) => css`
@@ -58,9 +70,10 @@ export const Label = styled.label`
   `}
 `
 
-export const Wrapper = styled.div<Pick<TextFieldProps, 'error'>>`
-  ${({ theme, error }) => css`
+export const Wrapper = styled.div<WrapperProps>`
+  ${({ theme, error, disabled }) => css`
     ${error && wrapperModifiers.error(theme)};
+    ${disabled && wrapperModifiers.disabled(theme)};
   `}
 `
 
