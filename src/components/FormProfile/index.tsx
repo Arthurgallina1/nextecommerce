@@ -4,7 +4,7 @@ import TextField from 'components/TextField'
 import * as S from './styles'
 
 const FormProfile = () => (
-  <S.Wrapper>
+  <>
     <Heading size="small" lineBottom color="black">
       My profile
     </Heading>
@@ -37,7 +37,7 @@ const FormProfile = () => (
 
       <Button size="large">Save</Button>
     </S.Form>
-  </S.Wrapper>
+  </>
 )
 
 export default FormProfile
