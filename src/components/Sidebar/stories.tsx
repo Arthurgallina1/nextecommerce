@@ -23,11 +23,11 @@ export const Default: Story<SidebarProps> = (args) => (
   </div>
 )
 
-// export const WithInitialValues: Story<SidebarProps> = (args) => (
-//   <div style={{ padding: 16, maxWidth: 320 }}>
-//     <Sidebar
-//       {...args}
-//       initialValues={{ windows: true, sort_by: 'low-to-high' }}
-//     />
-//   </div>
-// )
+export const WithInitialValues: Story<SidebarProps> = (args) => (
+  <div style={{ padding: 16, maxWidth: 320 }}>
+    <Sidebar
+      {...args}
+      initialValues={{ windows: true, sort_by: 'low-to-high' }}
+    />
+  </div>
+)
