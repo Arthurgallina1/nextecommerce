@@ -1,6 +1,6 @@
 import { initializeApollo } from 'utils/apollo'
 import { QUERY_GAMES } from 'graphql/queries/games'
-import { QueryGames, QueryGamesVariables } from 'graphql/genereted/QueryGames'
+import { QueryGames, QueryGamesVariables } from 'graphql/generated/QueryGames'
 
 import GamesTemplate, { GamesTemplateProps } from 'templates/Games'
 import filterItemMock from 'components/Sidebar/mock'
@@ -27,10 +27,7 @@ export async function getStaticProps() {
           'https://picsum.photos/200/300' ||
           `http://localhost:1337/${game?.cover?.url}` ||
           null,
-        price: new Intl.NumberFormat('en', {
-          style: 'currency',
-          currency: 'USD'
-        }).format(game.price)
+        price: game.price
       })),
       filterItems: filterItemMock
     }

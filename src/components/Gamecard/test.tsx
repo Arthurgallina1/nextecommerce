@@ -7,7 +7,7 @@ const props = {
   title: 'Red Dead Redemption',
   developer: 'Rockstar Games',
   img: '/img/red-dead-img.jpg',
-  price: 'R$ 300',
+  price: 300,
   slug: 'read-dead-redemption'
 }
 
@@ -39,24 +39,24 @@ describe('Gamecard', () => {
     renderWithTheme(<Gamecard {...props} />)
 
     //preço n tenha line through
-    expect(screen.getByText('R$ 300')).not.toHaveStyle({
+    expect(screen.getByText('$300.00')).not.toHaveStyle({
       textDecoration: 'line-through'
     })
     //preço tenha bg secundario
-    expect(screen.getByText('R$ 300')).toHaveStyle({
+    expect(screen.getByText('$300.00')).toHaveStyle({
       backgroundColor: '#3CD3C1'
     })
   })
 
   it('should render a line-throught in price when promotional', () => {
-    renderWithTheme(<Gamecard {...props} promotionalPrice={'R$ 250'} />)
+    renderWithTheme(<Gamecard {...props} promotionalPrice={250} />)
 
     //preço tenha line through
-    expect(screen.getByText('R$ 300')).toHaveStyle({
+    expect(screen.getByText('$300.00')).toHaveStyle({
       textDecoration: 'line-through'
     })
     //preço novo promocional não tem line throgu
-    expect(screen.getByText('R$ 250')).not.toHaveStyle({
+    expect(screen.getByText('$250.00')).not.toHaveStyle({
       textDecoration: 'line-through'
     })
   })

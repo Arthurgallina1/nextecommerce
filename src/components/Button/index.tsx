@@ -18,7 +18,7 @@ export type ButtonProps = {
   // onClick?: () => (event: React.MouseEvent<HTMLButtonElement>) => void
 } & ButtonTypes
 
-const Button: React.ForwardRefRenderFunction<S.WrappersProps, ButtonProps> = (
+const Button: React.ForwardRefRenderFunction<S.WrapperProps, ButtonProps> = (
   {
     children,
     size = 'medium',
