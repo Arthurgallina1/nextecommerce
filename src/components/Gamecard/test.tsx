@@ -7,7 +7,8 @@ const props = {
   title: 'Red Dead Redemption',
   developer: 'Rockstar Games',
   img: '/img/red-dead-img.jpg',
-  price: 'R$ 300'
+  price: 'R$ 300',
+  slug: 'read-dead-redemption'
 }
 
 describe('Gamecard', () => {
@@ -24,6 +25,11 @@ describe('Gamecard', () => {
     expect(screen.getByRole('img', { name: props.title })).toHaveAttribute(
       'src',
       props.img
+    )
+
+    expect(screen.getByRole('link', { name: props.title })).toHaveAttribute(
+      'href',
+      `/game/${props.slug}`
     )
 
     expect(screen.getByLabelText(/add to wishlist/i)).toBeInTheDocument()
