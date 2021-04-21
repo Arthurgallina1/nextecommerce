@@ -70,13 +70,139 @@ type UserPermissionsPasswordPayload {
   ok: Boolean!
 }
 
+type Banner {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  image: UploadFile
+  title: String!
+  subtitle: String!
+  button: ComponentPageButton
+  ribbon: ComponentPageRibbon
+  published_at: DateTime
+}
+
+type BannerConnection {
+  values: [Banner]
+  groupBy: BannerGroupBy
+  aggregate: BannerAggregator
+}
+
+type BannerAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type BannerGroupBy {
+  id: [BannerConnectionId]
+  created_at: [BannerConnectionCreated_at]
+  updated_at: [BannerConnectionUpdated_at]
+  image: [BannerConnectionImage]
+  title: [BannerConnectionTitle]
+  subtitle: [BannerConnectionSubtitle]
+  button: [BannerConnectionButton]
+  ribbon: [BannerConnectionRibbon]
+  published_at: [BannerConnectionPublished_at]
+}
+
+type BannerConnectionId {
+  key: ID
+  connection: BannerConnection
+}
+
+type BannerConnectionCreated_at {
+  key: DateTime
+  connection: BannerConnection
+}
+
+type BannerConnectionUpdated_at {
+  key: DateTime
+  connection: BannerConnection
+}
+
+type BannerConnectionImage {
+  key: ID
+  connection: BannerConnection
+}
+
+type BannerConnectionTitle {
+  key: String
+  connection: BannerConnection
+}
+
+type BannerConnectionSubtitle {
+  key: String
+  connection: BannerConnection
+}
+
+type BannerConnectionButton {
+  key: ID
+  connection: BannerConnection
+}
+
+type BannerConnectionRibbon {
+  key: ID
+  connection: BannerConnection
+}
+
+type BannerConnectionPublished_at {
+  key: DateTime
+  connection: BannerConnection
+}
+
+input BannerInput {
+  image: ID
+  title: String!
+  subtitle: String!
+  button: ComponentPageButtonInput!
+  ribbon: ComponentPageRibbonInput
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editBannerInput {
+  image: ID
+  title: String
+  subtitle: String
+  button: editComponentPageButtonInput
+  ribbon: editComponentPageRibbonInput
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createBannerInput {
+  data: BannerInput
+}
+
+type createBannerPayload {
+  banner: Banner
+}
+
+input updateBannerInput {
+  where: InputID
+  data: editBannerInput
+}
+
+type updateBannerPayload {
+  banner: Banner
+}
+
+input deleteBannerInput {
+  where: InputID
+}
+
+type deleteBannerPayload {
+  banner: Banner
+}
+
 type Category {
   id: ID!
   created_at: DateTime!
   updated_at: DateTime!
   name: String!
   slug: String!
-  published_at: DateTime
   games(sort: String, limit: Int, start: Int, where: JSON): [Game!]!
 }
 
@@ -97,7 +223,6 @@ type CategoryGroupBy {
   updated_at: [CategoryConnectionUpdated_at]
   name: [CategoryConnectionName]
   slug: [CategoryConnectionSlug]
-  published_at: [CategoryConnectionPublished_at]
 }
 
 type CategoryConnectionId {
@@ -125,16 +250,10 @@ type CategoryConnectionSlug {
   connection: CategoryConnection
 }
 
-type CategoryConnectionPublished_at {
-  key: DateTime
-  connection: CategoryConnection
-}
-
 input CategoryInput {
   name: String!
   slug: String!
   games: [ID]
-  published_at: DateTime
   created_by: ID
   updated_by: ID
 }
@@ -143,7 +262,6 @@ input editCategoryInput {
   name: String
   slug: String
   games: [ID]
-  published_at: DateTime
   created_by: ID
   updated_by: ID
 }
@@ -178,8 +296,7 @@ type Developer {
   created_at: DateTime!
   updated_at: DateTime!
   name: String!
-  slug: String
-  published_at: DateTime
+  slug: String!
   games(sort: String, limit: Int, start: Int, where: JSON): [Game!]!
 }
 
@@ -200,7 +317,6 @@ type DeveloperGroupBy {
   updated_at: [DeveloperConnectionUpdated_at]
   name: [DeveloperConnectionName]
   slug: [DeveloperConnectionSlug]
-  published_at: [DeveloperConnectionPublished_at]
 }
 
 type DeveloperConnectionId {
@@ -228,16 +344,10 @@ type DeveloperConnectionSlug {
   connection: DeveloperConnection
 }
 
-type DeveloperConnectionPublished_at {
-  key: DateTime
-  connection: DeveloperConnection
-}
-
 input DeveloperInput {
   name: String!
-  slug: String
+  slug: String!
   games: [ID]
-  published_at: DateTime
   created_by: ID
   updated_by: ID
 }
@@ -246,7 +356,6 @@ input editDeveloperInput {
   name: String
   slug: String
   games: [ID]
-  published_at: DateTime
   created_by: ID
   updated_by: ID
 }
@@ -277,12 +386,12 @@ type deleteDeveloperPayload {
 }
 
 enum ENUM_GAME_RATING {
-  FREE
-  pegi3
-  pegi7
-  pegi12
-  pegi16
-  pegi18
+  BR0
+  BR10
+  BR12
+  BR14
+  BR16
+  BR18
 }
 
 type Game {
@@ -298,7 +407,6 @@ type Game {
   rating: ENUM_GAME_RATING
   cover: UploadFile
   publisher: Publisher
-  published_at: DateTime
   gallery(sort: String, limit: Int, start: Int, where: JSON): [UploadFile!]!
   categories(sort: String, limit: Int, start: Int, where: JSON): [Category!]!
   developers(sort: String, limit: Int, start: Int, where: JSON): [Developer!]!
@@ -349,7 +457,6 @@ type GameGroupBy {
   rating: [GameConnectionRating]
   cover: [GameConnectionCover]
   publisher: [GameConnectionPublisher]
-  published_at: [GameConnectionPublished_at]
 }
 
 type GameConnectionId {
@@ -412,11 +519,6 @@ type GameConnectionPublisher {
   connection: GameConnection
 }
 
-type GameConnectionPublished_at {
-  key: DateTime
-  connection: GameConnection
-}
-
 input GameInput {
   name: String!
   slug: String!
@@ -431,7 +533,6 @@ input GameInput {
   developers: [ID]
   platforms: [ID]
   publisher: ID
-  published_at: DateTime
   created_by: ID
   updated_by: ID
 }
@@ -450,7 +551,6 @@ input editGameInput {
   developers: [ID]
   platforms: [ID]
   publisher: ID
-  published_at: DateTime
   created_by: ID
   updated_by: ID
 }
@@ -480,307 +580,168 @@ type deleteGamePayload {
   game: Game
 }
 
-type GradeDeHorarios {
+type Home {
   id: ID!
   created_at: DateTime!
   updated_at: DateTime!
-  nome: String
+  newGames: ComponentPageSection
+  upcomingGames: ComponentPageSection
+  freeGames: ComponentPageSection
+  popularGames: ComponentPagePopularGames
   published_at: DateTime
-  horarios(sort: String, limit: Int, start: Int, where: JSON): [Horario!]!
 }
 
-type GradeDeHorariosConnection {
-  values: [GradeDeHorarios]
-  groupBy: GradeDeHorariosGroupBy
-  aggregate: GradeDeHorariosAggregator
+input HomeInput {
+  newGames: ComponentPageSectionInput
+  upcomingGames: ComponentPageSectionInput
+  freeGames: ComponentPageSectionInput
+  popularGames: ComponentPagePopularGameInput
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
 }
 
-type GradeDeHorariosAggregator {
+input editHomeInput {
+  newGames: editComponentPageSectionInput
+  upcomingGames: editComponentPageSectionInput
+  freeGames: editComponentPageSectionInput
+  popularGames: editComponentPagePopularGameInput
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updateHomeInput {
+  data: editHomeInput
+}
+
+type updateHomePayload {
+  home: Home
+}
+
+type deleteHomePayload {
+  home: Home
+}
+
+type Order {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  user: UsersPermissionsUser
+  total_in_cents: String!
+  payment_intent_id: String
+  card_brand: String
+  card_last4: String
+  games(sort: String, limit: Int, start: Int, where: JSON): [Game!]!
+}
+
+type OrderConnection {
+  values: [Order]
+  groupBy: OrderGroupBy
+  aggregate: OrderAggregator
+}
+
+type OrderAggregator {
   count: Int
   totalCount: Int
 }
 
-type GradeDeHorariosGroupBy {
-  id: [GradeDeHorariosConnectionId]
-  created_at: [GradeDeHorariosConnectionCreated_at]
-  updated_at: [GradeDeHorariosConnectionUpdated_at]
-  nome: [GradeDeHorariosConnectionNome]
-  published_at: [GradeDeHorariosConnectionPublished_at]
+type OrderGroupBy {
+  id: [OrderConnectionId]
+  created_at: [OrderConnectionCreated_at]
+  updated_at: [OrderConnectionUpdated_at]
+  user: [OrderConnectionUser]
+  total_in_cents: [OrderConnectionTotal_in_cents]
+  payment_intent_id: [OrderConnectionPayment_intent_id]
+  card_brand: [OrderConnectionCard_brand]
+  card_last4: [OrderConnectionCard_last4]
 }
 
-type GradeDeHorariosConnectionId {
+type OrderConnectionId {
   key: ID
-  connection: GradeDeHorariosConnection
+  connection: OrderConnection
 }
 
-type GradeDeHorariosConnectionCreated_at {
+type OrderConnectionCreated_at {
   key: DateTime
-  connection: GradeDeHorariosConnection
+  connection: OrderConnection
 }
 
-type GradeDeHorariosConnectionUpdated_at {
+type OrderConnectionUpdated_at {
   key: DateTime
-  connection: GradeDeHorariosConnection
+  connection: OrderConnection
 }
 
-type GradeDeHorariosConnectionNome {
+type OrderConnectionUser {
+  key: ID
+  connection: OrderConnection
+}
+
+type OrderConnectionTotal_in_cents {
   key: String
-  connection: GradeDeHorariosConnection
+  connection: OrderConnection
 }
 
-type GradeDeHorariosConnectionPublished_at {
-  key: DateTime
-  connection: GradeDeHorariosConnection
+type OrderConnectionPayment_intent_id {
+  key: String
+  connection: OrderConnection
 }
 
-input GradeDeHorarioInput {
-  horarios: [ID]
-  nome: String
-  published_at: DateTime
+type OrderConnectionCard_brand {
+  key: String
+  connection: OrderConnection
+}
+
+type OrderConnectionCard_last4 {
+  key: String
+  connection: OrderConnection
+}
+
+input OrderInput {
+  user: ID
+  games: [ID]
+  total_in_cents: String!
+  payment_intent_id: String
+  card_brand: String
+  card_last4: String
   created_by: ID
   updated_by: ID
 }
 
-input editGradeDeHorarioInput {
-  horarios: [ID]
-  nome: String
-  published_at: DateTime
+input editOrderInput {
+  user: ID
+  games: [ID]
+  total_in_cents: String
+  payment_intent_id: String
+  card_brand: String
+  card_last4: String
   created_by: ID
   updated_by: ID
 }
 
-input createGradeDeHorarioInput {
-  data: GradeDeHorarioInput
+input createOrderInput {
+  data: OrderInput
 }
 
-type createGradeDeHorarioPayload {
-  gradeDeHorario: GradeDeHorarios
+type createOrderPayload {
+  order: Order
 }
 
-input updateGradeDeHorarioInput {
+input updateOrderInput {
   where: InputID
-  data: editGradeDeHorarioInput
+  data: editOrderInput
 }
 
-type updateGradeDeHorarioPayload {
-  gradeDeHorario: GradeDeHorarios
+type updateOrderPayload {
+  order: Order
 }
 
-input deleteGradeDeHorarioInput {
-  where: InputID
-}
-
-type deleteGradeDeHorarioPayload {
-  gradeDeHorario: GradeDeHorarios
-}
-
-type GradeHorariosQuadra {
-  id: ID!
-  created_at: DateTime!
-  updated_at: DateTime!
-  grade_de_horario: GradeDeHorarios
-  quadra: Quadra
-  published_at: DateTime
-}
-
-type GradeHorariosQuadraConnection {
-  values: [GradeHorariosQuadra]
-  groupBy: GradeHorariosQuadraGroupBy
-  aggregate: GradeHorariosQuadraAggregator
-}
-
-type GradeHorariosQuadraAggregator {
-  count: Int
-  totalCount: Int
-}
-
-type GradeHorariosQuadraGroupBy {
-  id: [GradeHorariosQuadraConnectionId]
-  created_at: [GradeHorariosQuadraConnectionCreated_at]
-  updated_at: [GradeHorariosQuadraConnectionUpdated_at]
-  grade_de_horario: [GradeHorariosQuadraConnectionGrade_de_horario]
-  quadra: [GradeHorariosQuadraConnectionQuadra]
-  published_at: [GradeHorariosQuadraConnectionPublished_at]
-}
-
-type GradeHorariosQuadraConnectionId {
-  key: ID
-  connection: GradeHorariosQuadraConnection
-}
-
-type GradeHorariosQuadraConnectionCreated_at {
-  key: DateTime
-  connection: GradeHorariosQuadraConnection
-}
-
-type GradeHorariosQuadraConnectionUpdated_at {
-  key: DateTime
-  connection: GradeHorariosQuadraConnection
-}
-
-type GradeHorariosQuadraConnectionGrade_de_horario {
-  key: ID
-  connection: GradeHorariosQuadraConnection
-}
-
-type GradeHorariosQuadraConnectionQuadra {
-  key: ID
-  connection: GradeHorariosQuadraConnection
-}
-
-type GradeHorariosQuadraConnectionPublished_at {
-  key: DateTime
-  connection: GradeHorariosQuadraConnection
-}
-
-input GradeHorariosQuadraInput {
-  grade_de_horario: ID
-  quadra: ID
-  published_at: DateTime
-  created_by: ID
-  updated_by: ID
-}
-
-input editGradeHorariosQuadraInput {
-  grade_de_horario: ID
-  quadra: ID
-  published_at: DateTime
-  created_by: ID
-  updated_by: ID
-}
-
-input createGradeHorariosQuadraInput {
-  data: GradeHorariosQuadraInput
-}
-
-type createGradeHorariosQuadraPayload {
-  gradeHorariosQuadra: GradeHorariosQuadra
-}
-
-input updateGradeHorariosQuadraInput {
-  where: InputID
-  data: editGradeHorariosQuadraInput
-}
-
-type updateGradeHorariosQuadraPayload {
-  gradeHorariosQuadra: GradeHorariosQuadra
-}
-
-input deleteGradeHorariosQuadraInput {
+input deleteOrderInput {
   where: InputID
 }
 
-type deleteGradeHorariosQuadraPayload {
-  gradeHorariosQuadra: GradeHorariosQuadra
-}
-
-type Horario {
-  id: ID!
-  created_at: DateTime!
-  updated_at: DateTime!
-  inicio: Time
-  fim: Time
-  disponivel: Boolean
-  published_at: DateTime
-}
-
-type HorarioConnection {
-  values: [Horario]
-  groupBy: HorarioGroupBy
-  aggregate: HorarioAggregator
-}
-
-type HorarioAggregator {
-  count: Int
-  totalCount: Int
-}
-
-type HorarioGroupBy {
-  id: [HorarioConnectionId]
-  created_at: [HorarioConnectionCreated_at]
-  updated_at: [HorarioConnectionUpdated_at]
-  inicio: [HorarioConnectionInicio]
-  fim: [HorarioConnectionFim]
-  disponivel: [HorarioConnectionDisponivel]
-  published_at: [HorarioConnectionPublished_at]
-}
-
-type HorarioConnectionId {
-  key: ID
-  connection: HorarioConnection
-}
-
-type HorarioConnectionCreated_at {
-  key: DateTime
-  connection: HorarioConnection
-}
-
-type HorarioConnectionUpdated_at {
-  key: DateTime
-  connection: HorarioConnection
-}
-
-type HorarioConnectionInicio {
-  key: ID
-  connection: HorarioConnection
-}
-
-type HorarioConnectionFim {
-  key: ID
-  connection: HorarioConnection
-}
-
-type HorarioConnectionDisponivel {
-  key: Boolean
-  connection: HorarioConnection
-}
-
-type HorarioConnectionPublished_at {
-  key: DateTime
-  connection: HorarioConnection
-}
-
-input HorarioInput {
-  inicio: Time
-  fim: Time
-  disponivel: Boolean
-  published_at: DateTime
-  created_by: ID
-  updated_by: ID
-}
-
-input editHorarioInput {
-  inicio: Time
-  fim: Time
-  disponivel: Boolean
-  published_at: DateTime
-  created_by: ID
-  updated_by: ID
-}
-
-input createHorarioInput {
-  data: HorarioInput
-}
-
-type createHorarioPayload {
-  horario: Horario
-}
-
-input updateHorarioInput {
-  where: InputID
-  data: editHorarioInput
-}
-
-type updateHorarioPayload {
-  horario: Horario
-}
-
-input deleteHorarioInput {
-  where: InputID
-}
-
-type deleteHorarioPayload {
-  horario: Horario
+type deleteOrderPayload {
+  order: Order
 }
 
 type Platform {
@@ -789,7 +750,6 @@ type Platform {
   updated_at: DateTime!
   name: String!
   slug: String!
-  published_at: DateTime
   games(sort: String, limit: Int, start: Int, where: JSON): [Game!]!
 }
 
@@ -810,7 +770,6 @@ type PlatformGroupBy {
   updated_at: [PlatformConnectionUpdated_at]
   name: [PlatformConnectionName]
   slug: [PlatformConnectionSlug]
-  published_at: [PlatformConnectionPublished_at]
 }
 
 type PlatformConnectionId {
@@ -838,16 +797,10 @@ type PlatformConnectionSlug {
   connection: PlatformConnection
 }
 
-type PlatformConnectionPublished_at {
-  key: DateTime
-  connection: PlatformConnection
-}
-
 input PlatformInput {
   name: String!
   slug: String!
   games: [ID]
-  published_at: DateTime
   created_by: ID
   updated_by: ID
 }
@@ -856,7 +809,6 @@ input editPlatformInput {
   name: String
   slug: String
   games: [ID]
-  published_at: DateTime
   created_by: ID
   updated_by: ID
 }
@@ -892,7 +844,6 @@ type Publisher {
   updated_at: DateTime!
   name: String!
   slug: String!
-  published_at: DateTime
   games(sort: String, limit: Int, start: Int, where: JSON): [Game!]!
 }
 
@@ -913,7 +864,6 @@ type PublisherGroupBy {
   updated_at: [PublisherConnectionUpdated_at]
   name: [PublisherConnectionName]
   slug: [PublisherConnectionSlug]
-  published_at: [PublisherConnectionPublished_at]
 }
 
 type PublisherConnectionId {
@@ -941,16 +891,10 @@ type PublisherConnectionSlug {
   connection: PublisherConnection
 }
 
-type PublisherConnectionPublished_at {
-  key: DateTime
-  connection: PublisherConnection
-}
-
 input PublisherInput {
   name: String!
   slug: String!
   games: [ID]
-  published_at: DateTime
   created_by: ID
   updated_by: ID
 }
@@ -959,7 +903,6 @@ input editPublisherInput {
   name: String
   slug: String
   games: [ID]
-  published_at: DateTime
   created_by: ID
   updated_by: ID
 }
@@ -989,104 +932,120 @@ type deletePublisherPayload {
   publisher: Publisher
 }
 
-type Quadra {
+type Recommended {
   id: ID!
   created_at: DateTime!
   updated_at: DateTime!
-  nome: String
-  grade_horarios_quadra: GradeHorariosQuadra
-  published_at: DateTime
+  section: ComponentPagePopularGames
 }
 
-type QuadraConnection {
-  values: [Quadra]
-  groupBy: QuadraGroupBy
-  aggregate: QuadraAggregator
+input RecommendedInput {
+  section: ComponentPagePopularGameInput!
+  created_by: ID
+  updated_by: ID
 }
 
-type QuadraAggregator {
+input editRecommendedInput {
+  section: editComponentPagePopularGameInput
+  created_by: ID
+  updated_by: ID
+}
+
+input updateRecommendedInput {
+  data: editRecommendedInput
+}
+
+type updateRecommendedPayload {
+  recommended: Recommended
+}
+
+type deleteRecommendedPayload {
+  recommended: Recommended
+}
+
+type Wishlist {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  user: UsersPermissionsUser
+  games(sort: String, limit: Int, start: Int, where: JSON): [Game!]!
+}
+
+type WishlistConnection {
+  values: [Wishlist]
+  groupBy: WishlistGroupBy
+  aggregate: WishlistAggregator
+}
+
+type WishlistAggregator {
   count: Int
   totalCount: Int
 }
 
-type QuadraGroupBy {
-  id: [QuadraConnectionId]
-  created_at: [QuadraConnectionCreated_at]
-  updated_at: [QuadraConnectionUpdated_at]
-  nome: [QuadraConnectionNome]
-  grade_horarios_quadra: [QuadraConnectionGrade_horarios_quadra]
-  published_at: [QuadraConnectionPublished_at]
+type WishlistGroupBy {
+  id: [WishlistConnectionId]
+  created_at: [WishlistConnectionCreated_at]
+  updated_at: [WishlistConnectionUpdated_at]
+  user: [WishlistConnectionUser]
 }
 
-type QuadraConnectionId {
+type WishlistConnectionId {
   key: ID
-  connection: QuadraConnection
+  connection: WishlistConnection
 }
 
-type QuadraConnectionCreated_at {
+type WishlistConnectionCreated_at {
   key: DateTime
-  connection: QuadraConnection
+  connection: WishlistConnection
 }
 
-type QuadraConnectionUpdated_at {
+type WishlistConnectionUpdated_at {
   key: DateTime
-  connection: QuadraConnection
+  connection: WishlistConnection
 }
 
-type QuadraConnectionNome {
-  key: String
-  connection: QuadraConnection
-}
-
-type QuadraConnectionGrade_horarios_quadra {
+type WishlistConnectionUser {
   key: ID
-  connection: QuadraConnection
+  connection: WishlistConnection
 }
 
-type QuadraConnectionPublished_at {
-  key: DateTime
-  connection: QuadraConnection
-}
-
-input QuadraInput {
-  nome: String
-  grade_horarios_quadra: ID
-  published_at: DateTime
+input WishlistInput {
+  user: ID
+  games: [ID]
   created_by: ID
   updated_by: ID
 }
 
-input editQuadraInput {
-  nome: String
-  grade_horarios_quadra: ID
-  published_at: DateTime
+input editWishlistInput {
+  user: ID
+  games: [ID]
   created_by: ID
   updated_by: ID
 }
 
-input createQuadraInput {
-  data: QuadraInput
+input createWishlistInput {
+  data: WishlistInput
 }
 
-type createQuadraPayload {
-  quadra: Quadra
+type createWishlistPayload {
+  wishlist: Wishlist
 }
 
-input updateQuadraInput {
+input updateWishlistInput {
   where: InputID
-  data: editQuadraInput
+  data: editWishlistInput
 }
 
-type updateQuadraPayload {
-  quadra: Quadra
+type updateWishlistPayload {
+  wishlist: Wishlist
 }
 
-input deleteQuadraInput {
+input deleteWishlistInput {
   where: InputID
 }
 
-type deleteQuadraPayload {
-  quadra: Quadra
+type deleteWishlistPayload {
+  wishlist: Wishlist
 }
 
 type UploadFile {
@@ -1537,7 +1496,128 @@ type deleteUserPayload {
   user: UsersPermissionsUser
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Category | CategoryConnection | CategoryAggregator | CategoryGroupBy | CategoryConnectionId | CategoryConnectionCreated_at | CategoryConnectionUpdated_at | CategoryConnectionName | CategoryConnectionSlug | CategoryConnectionPublished_at | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Developer | DeveloperConnection | DeveloperAggregator | DeveloperGroupBy | DeveloperConnectionId | DeveloperConnectionCreated_at | DeveloperConnectionUpdated_at | DeveloperConnectionName | DeveloperConnectionSlug | DeveloperConnectionPublished_at | createDeveloperPayload | updateDeveloperPayload | deleteDeveloperPayload | Game | GameConnection | GameAggregator | GameAggregatorSum | GameAggregatorAvg | GameAggregatorMin | GameAggregatorMax | GameGroupBy | GameConnectionId | GameConnectionCreated_at | GameConnectionUpdated_at | GameConnectionName | GameConnectionSlug | GameConnectionShort_description | GameConnectionDescription | GameConnectionPrice | GameConnectionRelease_date | GameConnectionRating | GameConnectionCover | GameConnectionPublisher | GameConnectionPublished_at | createGamePayload | updateGamePayload | deleteGamePayload | GradeDeHorarios | GradeDeHorariosConnection | GradeDeHorariosAggregator | GradeDeHorariosGroupBy | GradeDeHorariosConnectionId | GradeDeHorariosConnectionCreated_at | GradeDeHorariosConnectionUpdated_at | GradeDeHorariosConnectionNome | GradeDeHorariosConnectionPublished_at | createGradeDeHorarioPayload | updateGradeDeHorarioPayload | deleteGradeDeHorarioPayload | GradeHorariosQuadra | GradeHorariosQuadraConnection | GradeHorariosQuadraAggregator | GradeHorariosQuadraGroupBy | GradeHorariosQuadraConnectionId | GradeHorariosQuadraConnectionCreated_at | GradeHorariosQuadraConnectionUpdated_at | GradeHorariosQuadraConnectionGrade_de_horario | GradeHorariosQuadraConnectionQuadra | GradeHorariosQuadraConnectionPublished_at | createGradeHorariosQuadraPayload | updateGradeHorariosQuadraPayload | deleteGradeHorariosQuadraPayload | Horario | HorarioConnection | HorarioAggregator | HorarioGroupBy | HorarioConnectionId | HorarioConnectionCreated_at | HorarioConnectionUpdated_at | HorarioConnectionInicio | HorarioConnectionFim | HorarioConnectionDisponivel | HorarioConnectionPublished_at | createHorarioPayload | updateHorarioPayload | deleteHorarioPayload | Platform | PlatformConnection | PlatformAggregator | PlatformGroupBy | PlatformConnectionId | PlatformConnectionCreated_at | PlatformConnectionUpdated_at | PlatformConnectionName | PlatformConnectionSlug | PlatformConnectionPublished_at | createPlatformPayload | updatePlatformPayload | deletePlatformPayload | Publisher | PublisherConnection | PublisherAggregator | PublisherGroupBy | PublisherConnectionId | PublisherConnectionCreated_at | PublisherConnectionUpdated_at | PublisherConnectionName | PublisherConnectionSlug | PublisherConnectionPublished_at | createPublisherPayload | updatePublisherPayload | deletePublisherPayload | Quadra | QuadraConnection | QuadraAggregator | QuadraGroupBy | QuadraConnectionId | QuadraConnectionCreated_at | QuadraConnectionUpdated_at | QuadraConnectionNome | QuadraConnectionGrade_horarios_quadra | QuadraConnectionPublished_at | createQuadraPayload | updateQuadraPayload | deleteQuadraPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_at | UploadFileConnectionUpdated_at | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_at | UsersPermissionsUserConnectionUpdated_at | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | createUserPayload | updateUserPayload | deleteUserPayload
+type ComponentPageButton {
+  id: ID!
+  label: String!
+  link: String!
+}
+
+input ComponentPageButtonInput {
+  label: String
+  link: String!
+}
+
+input editComponentPageButtonInput {
+  id: ID
+  label: String
+  link: String
+}
+
+enum ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT {
+  right
+  left
+}
+
+type ComponentPageHighlight {
+  id: ID!
+  title: String!
+  subtitle: String!
+  background: UploadFile
+  floatImage: UploadFile
+  buttonLabel: String!
+  buttonLink: String!
+  alignment: ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT
+}
+
+input ComponentPageHighlightInput {
+  title: String!
+  subtitle: String!
+  background: ID
+  floatImage: ID
+  buttonLabel: String!
+  buttonLink: String!
+  alignment: ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT
+}
+
+input editComponentPageHighlightInput {
+  id: ID
+  title: String
+  subtitle: String
+  background: ID
+  floatImage: ID
+  buttonLabel: String
+  buttonLink: String
+  alignment: ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT
+}
+
+type ComponentPagePopularGames {
+  id: ID!
+  title: String!
+  highlight: ComponentPageHighlight
+  games(sort: String, limit: Int, start: Int, where: JSON): [Game!]!
+}
+
+input ComponentPagePopularGameInput {
+  title: String!
+  highlight: ComponentPageHighlightInput
+  games: [ID]
+}
+
+input editComponentPagePopularGameInput {
+  id: ID
+  title: String
+  highlight: editComponentPageHighlightInput
+  games: [ID]
+}
+
+enum ENUM_COMPONENTPAGERIBBON_COLOR {
+  primary
+  secondary
+}
+
+enum ENUM_COMPONENTPAGERIBBON_SIZE {
+  small
+  normal
+}
+
+type ComponentPageRibbon {
+  id: ID!
+  text: String
+  color: ENUM_COMPONENTPAGERIBBON_COLOR
+  size: ENUM_COMPONENTPAGERIBBON_SIZE
+}
+
+input ComponentPageRibbonInput {
+  text: String
+  color: ENUM_COMPONENTPAGERIBBON_COLOR
+  size: ENUM_COMPONENTPAGERIBBON_SIZE
+}
+
+input editComponentPageRibbonInput {
+  id: ID
+  text: String
+  color: ENUM_COMPONENTPAGERIBBON_COLOR
+  size: ENUM_COMPONENTPAGERIBBON_SIZE
+}
+
+type ComponentPageSection {
+  id: ID!
+  title: String
+  highlight: ComponentPageHighlight
+}
+
+input ComponentPageSectionInput {
+  title: String
+  highlight: ComponentPageHighlightInput
+}
+
+input editComponentPageSectionInput {
+  id: ID
+  title: String
+  highlight: editComponentPageHighlightInput
+}
+
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Banner | BannerConnection | BannerAggregator | BannerGroupBy | BannerConnectionId | BannerConnectionCreated_at | BannerConnectionUpdated_at | BannerConnectionImage | BannerConnectionTitle | BannerConnectionSubtitle | BannerConnectionButton | BannerConnectionRibbon | BannerConnectionPublished_at | createBannerPayload | updateBannerPayload | deleteBannerPayload | Category | CategoryConnection | CategoryAggregator | CategoryGroupBy | CategoryConnectionId | CategoryConnectionCreated_at | CategoryConnectionUpdated_at | CategoryConnectionName | CategoryConnectionSlug | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Developer | DeveloperConnection | DeveloperAggregator | DeveloperGroupBy | DeveloperConnectionId | DeveloperConnectionCreated_at | DeveloperConnectionUpdated_at | DeveloperConnectionName | DeveloperConnectionSlug | createDeveloperPayload | updateDeveloperPayload | deleteDeveloperPayload | Game | GameConnection | GameAggregator | GameAggregatorSum | GameAggregatorAvg | GameAggregatorMin | GameAggregatorMax | GameGroupBy | GameConnectionId | GameConnectionCreated_at | GameConnectionUpdated_at | GameConnectionName | GameConnectionSlug | GameConnectionShort_description | GameConnectionDescription | GameConnectionPrice | GameConnectionRelease_date | GameConnectionRating | GameConnectionCover | GameConnectionPublisher | createGamePayload | updateGamePayload | deleteGamePayload | Home | updateHomePayload | deleteHomePayload | Order | OrderConnection | OrderAggregator | OrderGroupBy | OrderConnectionId | OrderConnectionCreated_at | OrderConnectionUpdated_at | OrderConnectionUser | OrderConnectionTotal_in_cents | OrderConnectionPayment_intent_id | OrderConnectionCard_brand | OrderConnectionCard_last4 | createOrderPayload | updateOrderPayload | deleteOrderPayload | Platform | PlatformConnection | PlatformAggregator | PlatformGroupBy | PlatformConnectionId | PlatformConnectionCreated_at | PlatformConnectionUpdated_at | PlatformConnectionName | PlatformConnectionSlug | createPlatformPayload | updatePlatformPayload | deletePlatformPayload | Publisher | PublisherConnection | PublisherAggregator | PublisherGroupBy | PublisherConnectionId | PublisherConnectionCreated_at | PublisherConnectionUpdated_at | PublisherConnectionName | PublisherConnectionSlug | createPublisherPayload | updatePublisherPayload | deletePublisherPayload | Recommended | updateRecommendedPayload | deleteRecommendedPayload | Wishlist | WishlistConnection | WishlistAggregator | WishlistGroupBy | WishlistConnectionId | WishlistConnectionCreated_at | WishlistConnectionUpdated_at | WishlistConnectionUser | createWishlistPayload | updateWishlistPayload | deleteWishlistPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_at | UploadFileConnectionUpdated_at | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_at | UsersPermissionsUserConnectionUpdated_at | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | createUserPayload | updateUserPayload | deleteUserPayload | ComponentPageButton | ComponentPageHighlight | ComponentPagePopularGames | ComponentPageRibbon | ComponentPageSection
 
 input InputID {
   id: ID!
@@ -1556,6 +1636,9 @@ type AdminUser {
 }
 
 type Query {
+  banner(id: ID!, publicationState: PublicationState): Banner
+  banners(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Banner!]!
+  bannersConnection(sort: String, limit: Int, start: Int, where: JSON): BannerConnection
   category(id: ID!, publicationState: PublicationState): Category
   categories(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Category!]!
   categoriesConnection(sort: String, limit: Int, start: Int, where: JSON): CategoryConnection
@@ -1565,24 +1648,20 @@ type Query {
   game(id: ID!, publicationState: PublicationState): Game
   games(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Game!]!
   gamesConnection(sort: String, limit: Int, start: Int, where: JSON): GameConnection
-  gradeDeHorario(id: ID!, publicationState: PublicationState): GradeDeHorarios
-  gradeDeHorarios(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [GradeDeHorarios!]!
-  gradeDeHorariosConnection(sort: String, limit: Int, start: Int, where: JSON): GradeDeHorariosConnection
-  gradeHorariosQuadra(id: ID!, publicationState: PublicationState): GradeHorariosQuadra
-  gradeHorariosQuadras(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [GradeHorariosQuadra!]!
-  gradeHorariosQuadrasConnection(sort: String, limit: Int, start: Int, where: JSON): GradeHorariosQuadraConnection
-  horario(id: ID!, publicationState: PublicationState): Horario
-  horarios(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Horario!]!
-  horariosConnection(sort: String, limit: Int, start: Int, where: JSON): HorarioConnection
+  home(publicationState: PublicationState): Home
+  order(id: ID!, publicationState: PublicationState): Order
+  orders(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Order!]!
+  ordersConnection(sort: String, limit: Int, start: Int, where: JSON): OrderConnection
   platform(id: ID!, publicationState: PublicationState): Platform
   platforms(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Platform!]!
   platformsConnection(sort: String, limit: Int, start: Int, where: JSON): PlatformConnection
   publisher(id: ID!, publicationState: PublicationState): Publisher
   publishers(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Publisher!]!
   publishersConnection(sort: String, limit: Int, start: Int, where: JSON): PublisherConnection
-  quadra(id: ID!, publicationState: PublicationState): Quadra
-  quadras(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Quadra!]!
-  quadrasConnection(sort: String, limit: Int, start: Int, where: JSON): QuadraConnection
+  recommended(publicationState: PublicationState): Recommended
+  wishlist(id: ID!, publicationState: PublicationState): Wishlist
+  wishlists(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Wishlist!]!
+  wishlistsConnection(sort: String, limit: Int, start: Int, where: JSON): WishlistConnection
   files(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UploadFile!]!
   filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
   role(id: ID!, publicationState: PublicationState): UsersPermissionsRole
@@ -1596,6 +1675,9 @@ type Query {
 }
 
 type Mutation {
+  createBanner(input: createBannerInput): createBannerPayload
+  updateBanner(input: updateBannerInput): updateBannerPayload
+  deleteBanner(input: deleteBannerInput): deleteBannerPayload
   createCategory(input: createCategoryInput): createCategoryPayload
   updateCategory(input: updateCategoryInput): updateCategoryPayload
   deleteCategory(input: deleteCategoryInput): deleteCategoryPayload
@@ -1605,24 +1687,22 @@ type Mutation {
   createGame(input: createGameInput): createGamePayload
   updateGame(input: updateGameInput): updateGamePayload
   deleteGame(input: deleteGameInput): deleteGamePayload
-  createGradeDeHorario(input: createGradeDeHorarioInput): createGradeDeHorarioPayload
-  updateGradeDeHorario(input: updateGradeDeHorarioInput): updateGradeDeHorarioPayload
-  deleteGradeDeHorario(input: deleteGradeDeHorarioInput): deleteGradeDeHorarioPayload
-  createGradeHorariosQuadra(input: createGradeHorariosQuadraInput): createGradeHorariosQuadraPayload
-  updateGradeHorariosQuadra(input: updateGradeHorariosQuadraInput): updateGradeHorariosQuadraPayload
-  deleteGradeHorariosQuadra(input: deleteGradeHorariosQuadraInput): deleteGradeHorariosQuadraPayload
-  createHorario(input: createHorarioInput): createHorarioPayload
-  updateHorario(input: updateHorarioInput): updateHorarioPayload
-  deleteHorario(input: deleteHorarioInput): deleteHorarioPayload
+  updateHome(input: updateHomeInput): updateHomePayload
+  deleteHome: deleteHomePayload
+  createOrder(input: createOrderInput): createOrderPayload
+  updateOrder(input: updateOrderInput): updateOrderPayload
+  deleteOrder(input: deleteOrderInput): deleteOrderPayload
   createPlatform(input: createPlatformInput): createPlatformPayload
   updatePlatform(input: updatePlatformInput): updatePlatformPayload
   deletePlatform(input: deletePlatformInput): deletePlatformPayload
   createPublisher(input: createPublisherInput): createPublisherPayload
   updatePublisher(input: updatePublisherInput): updatePublisherPayload
   deletePublisher(input: deletePublisherInput): deletePublisherPayload
-  createQuadra(input: createQuadraInput): createQuadraPayload
-  updateQuadra(input: updateQuadraInput): updateQuadraPayload
-  deleteQuadra(input: deleteQuadraInput): deleteQuadraPayload
+  updateRecommended(input: updateRecommendedInput): updateRecommendedPayload
+  deleteRecommended: deleteRecommendedPayload
+  createWishlist(input: createWishlistInput): createWishlistPayload
+  updateWishlist(input: updateWishlistInput): updateWishlistPayload
+  deleteWishlist(input: deleteWishlistInput): deleteWishlistPayload
   """Delete one file"""
   deleteFile(input: deleteFileInput): deleteFilePayload
   """Create a new role"""
@@ -1637,7 +1717,7 @@ type Mutation {
   updateUser(input: updateUserInput): updateUserPayload
   """Delete an existing user"""
   deleteUser(input: deleteUserInput): deleteUserPayload
-  upload(refId: ID, ref: String, field: String, source: String, info: FileInfoInput, file: Upload!): UploadFile!
+  upload(refId: ID, ref: String, field: String, source: String, file: Upload!): UploadFile!
   multipleUpload(refId: ID, ref: String, field: String, source: String, files: [Upload]!): [UploadFile]!
   updateFileInfo(id: ID!, info: FileInfoInput!): UploadFile!
   login(input: UsersPermissionsLoginInput!): UsersPermissionsLoginPayload!
@@ -1664,3 +1744,8 @@ scalar Long
 
 """The `Upload` scalar type represents a file upload."""
 scalar Upload
+
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
