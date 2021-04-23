@@ -13,7 +13,7 @@ export async function getStaticProps() {
   const apolloClient = initializeApollo()
 
   const {
-    data: { banners, newGames }
+    data: { banners, newGames, upcomingGames, freeGames }
   } = await apolloClient.query<QueryHome>({ query: QUERY_HOME })
 
   return {
@@ -41,46 +41,26 @@ export async function getStaticProps() {
       })),
       mostPopularHighlight: highlightMock,
       mostPopularGames: bannersMock,
-      upcomingGames: bannersMock,
+      upcomingGames: upcomingGames.map((game) => ({
+        title: game.name,
+        slug: game.slug,
+        developer: game.developers[0].name,
+        img: `http://localhost:1337${game.cover?.url}`,
+        price: game.price
+      })),
       upcomingHighligth: highlightMock,
-      freeGames: bannersMock,
-      upcomingMoreGames: bannersMock,
+      freeGames: freeGames.map((game) => ({
+        title: game.name,
+        slug: game.slug,
+        developer: game.developers[0].name,
+        img: `http://localhost:1337${game.cover?.url}`,
+        price: game.price
+      })),
       freeHighligth: highlightMock
     }
   }
 }
 
-// {
-//   img: 'https://source.unsplash.com/user/willianjusten/1042x580',
-//   title: 'Defy death 1',
-//   subtitle: '<p>Play the new <strong>CrashLands</strong> season',
-//   buttonLabel: 'Buy now',
-//   buttonLink: '/games/defy-death',
-//   ribbon: 'Bestselling'
-// },
-
-// "image": {
-//   "url": "/uploads/Screenshot_2020_11_10_Control_Panel_Digital_Ocean_e955c2047b.png"
-// },
-// "title": "New Test Banner",
-// "subtitle": "Testing",
-// "button": {
-//   "label": "Buy now",
-//   "link": "/cart"
-// },
-// "ribbon": {
-//   "text": "Promotion",
-//   "color": "primary",
-//   "size": "normal"
-// }
-
-// export function getServerSideProps() {
-//   return {
-//     props: {
-//       heading: 'most popular'
-//     }
-//   }
-// }
 // getServerSideProps -> gera via SSR a cada request (não vai para o bundle do cliente)
 // getInitialProps -> gera via ssr a cada request (vai para o cliente, faz hydrate do lado do cliente depois do 1o req)
 // getStaticProps -> generate static in build time SSG
