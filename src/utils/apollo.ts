@@ -1,31 +1,18 @@
-import {
-  ApolloClient,
-  HttpLink,
-  InMemoryCache,
-  NormalizedCacheObject
-} from '@apollo/client'
-import { concatPagination } from '@apollo/client/utilities'
+import { ApolloClient, HttpLink, NormalizedCacheObject } from '@apollo/client'
 import { useMemo } from 'react'
+import apolloCache from './apolloCache'
 
-let apolloClient: ApolloClient<NormalizedCacheObject>
+let apolloClient: ApolloClient<NormalizedCacheObject | null>
 
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined', //hora ssr, hora client
     link: new HttpLink({ uri: 'http://localhost:1337/graphql' }),
-    cache: new InMemoryCache({
-      typePolicies: {
-        Query: {
-          fields: {
-            games: concatPagination()
-          }
-        }
-      }
-    })
+    cache: apolloCache
   })
 }
 
-export function initializeApollo(initialState = {}) {
+export function initializeApollo(initialState = null) {
   //verify if apolloClient already exists
   const apolloClientGlobal = apolloClient ?? createApolloClient()
 
@@ -43,7 +30,7 @@ export function initializeApollo(initialState = {}) {
 }
 
 //memoiza para só mudar qnd muda initial state
-export function useApollo(initialState = {}) {
+export function useApollo(initialState = null) {
   const store = useMemo(() => initializeApollo(initialState), [initialState])
   return store
 }
