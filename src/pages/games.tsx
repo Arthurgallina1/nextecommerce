@@ -16,7 +16,6 @@ export async function getStaticProps() {
     variables: { limit: 9 }
   })
 
-  console.log(apolloClient.cache.extract())
   return {
     props: {
       revalidate: 60,
