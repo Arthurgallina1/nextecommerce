@@ -7,7 +7,8 @@ export default {
   title: 'Sidebar',
   component: Sidebar,
   args: {
-    items
+    items,
+    onFilter: () => console.log('filter')
   },
   parameters: {
     layout: 'fullscreen',
