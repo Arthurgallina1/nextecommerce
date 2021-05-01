@@ -9,6 +9,7 @@ import ExploreSidebar, { ItemProps } from 'components/Sidebar'
 import Base from 'templates/Base'
 import { parseQueryStringToFilter, parseQueryStringToWhere } from 'utils/filter'
 import * as S from './styles'
+import Empty from 'components/Empty'
 
 export type GamesTemplateProps = {
   filterItems: ItemProps[]
@@ -18,12 +19,19 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
   const { push, query } = useRouter()
 
   const { data, loading, fetchMore } = useQueryGames({
+    notifyOnNetworkStatusChange: true,
     variables: {
       limit: 15,
       where: parseQueryStringToWhere({ queryString: query, filterItems }),
       sort: query.sort as string | null
     }
   })
+
+  if (!data) return <p>loading...</p>
+
+  const { games, gamesConnection } = data
+
+  const hasMoreGames = games.length < (gamesConnection?.values?.length || 0)
 
   const handleFilter = (items: ParsedUrlQueryInput) => {
     push({
@@ -55,32 +63,47 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
           onFilter={handleFilter}
         />
 
-        {loading ? (
-          <h3 style={{ color: 'white' }}>loading</h3>
-        ) : (
-          <section>
-            <Grid>
-              {data?.games.map((game) => (
-                <Gamecard
-                  key={game.slug}
-                  title={game.name}
-                  slug={game.slug}
-                  developer={game.developers[0].name}
-                  img={
-                    'https://via.placeholder.com/150' ||
-                    `http://localhost:1337${game?.cover!.url}`
-                  }
-                  price={game.price}
-                />
-              ))}
-            </Grid>
-
-            <S.ShowMore role="button" onClick={handleShowMore}>
-              <p>Show More</p>
-              <ArrowDown size={35} />
-            </S.ShowMore>
-          </section>
-        )}
+        <section>
+          {data?.games.length ? (
+            <>
+              <Grid>
+                {data?.games.map((game) => (
+                  <Gamecard
+                    key={game.slug}
+                    title={game.name}
+                    slug={game.slug}
+                    developer={game.developers[0].name}
+                    img={
+                      'https://via.placeholder.com/150' ||
+                      `http://localhost:1337${game?.cover!.url}`
+                    }
+                    price={game.price}
+                  />
+                ))}
+              </Grid>
+              {hasMoreGames && (
+                <S.ShowMore>
+                  {loading ? (
+                    <S.ShowMoreLoading
+                      src="/img/dots.svg"
+                      alt="Loading more games..."
+                    />
+                  ) : (
+                    <S.ShowMoreButton role="button" onClick={handleShowMore}>
+                      <p>Show More</p>
+                      <ArrowDown size={35} />
+                    </S.ShowMoreButton>
+                  )}
+                </S.ShowMore>
+              )}
+            </>
+          ) : (
+            <Empty
+              title="Ooops"
+              description="We didn't find any games with this filter"
+            />
+          )}
+        </section>
       </S.Main>
     </Base>
   )
