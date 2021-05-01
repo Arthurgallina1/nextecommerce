@@ -46,9 +46,9 @@ export const Input = styled.input`
   `}
 `
 
-export const Label = styled.label<Pick<CheckboxProps, 'color'>>`
-  ${({ theme, color }) => css`
-    color: ${theme.colors[color!]};
+export const Label = styled.label<Pick<CheckboxProps, 'labelColor'>>`
+  ${({ theme, labelColor }) => css`
+    color: ${theme.colors[labelColor!]};
     cursor: pointer;
     padding-left: ${theme.spacings.xxsmall};
     line-height: 1.8rem;

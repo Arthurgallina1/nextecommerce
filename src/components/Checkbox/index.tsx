@@ -1,33 +1,32 @@
-import { useState, InputHTMLAttributes } from 'react'
+import { InputHTMLAttributes, useState } from 'react'
 import * as S from './styles'
 
 export type CheckboxProps = {
   onCheck?: (status: boolean) => void
+  isChecked?: boolean
   label?: string
   labelFor?: string
-  isChecked?: boolean
-  color?: 'black' | 'white'
+  labelColor?: 'white' | 'black'
   value?: string | ReadonlyArray<string> | number
 } & InputHTMLAttributes<HTMLInputElement>
 
 const Checkbox = ({
   onCheck,
-  label = '',
-  labelFor = '',
-  color = 'white',
   isChecked = false,
+  label,
+  labelFor = '',
+  labelColor = 'white',
   value,
   ...props
 }: CheckboxProps) => {
+  // controlled component (state)
   const [checked, setChecked] = useState(isChecked)
 
   const onChange = () => {
-    const status = !checked
+    const status = !checked // true => false => true
     setChecked(status)
 
-    if (onCheck) {
-      onCheck(status)
-    }
+    !!onCheck && onCheck(status)
   }
 
   return (
@@ -36,12 +35,12 @@ const Checkbox = ({
         id={labelFor}
         type="checkbox"
         onChange={onChange}
-        defaultChecked={isChecked}
+        checked={checked}
         value={value}
         {...props}
       />
-      {label && (
-        <S.Label htmlFor={labelFor} aria-labelledby={labelFor} color={color}>
+      {!!label && (
+        <S.Label htmlFor={labelFor} labelColor={labelColor}>
           {label}
         </S.Label>
       )}
