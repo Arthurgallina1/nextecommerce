@@ -24,7 +24,7 @@ describe('<ExploreSidebar />', () => {
 
   it('should render inputs', () => {
     renderWithTheme(<ExploreSidebar items={items} onFilter={jest.fn} />)
-    screen.logTestingPlaygroundURL()
+    // screen.logTestingPlaygroundURL()
 
     expect(
       screen.getByRole('checkbox', { name: /under \$50/i })
