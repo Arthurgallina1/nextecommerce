@@ -1,5 +1,4 @@
-import { screen } from '@testing-library/react'
-import { renderWithTheme } from '../../utils/tests/helpers'
+import { render, screen } from 'utils/test-utils'
 import Banner from './index'
 
 const props = {
@@ -12,7 +11,7 @@ const props = {
 
 describe('Banner', () => {
   it('should render correctly', () => {
-    const { container } = renderWithTheme(<Banner {...props} />)
+    const { container } = render(<Banner {...props} />)
     expect(
       screen.getByRole('heading', { name: /Defy death/i })
     ).toBeInTheDocument()
@@ -23,7 +22,7 @@ describe('Banner', () => {
     expect(container.firstChild).toMatchSnapshot()
   })
   it('should render a Ribbon', () => {
-    const { container } = renderWithTheme(
+    render(
       <Banner
         {...props}
         ribbon="My Ribbon"
