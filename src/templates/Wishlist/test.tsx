@@ -29,7 +29,7 @@ describe('<Wishlist />', () => {
       screen.getByRole('heading', { name: /wishlist/i })
     ).toBeInTheDocument()
 
-    expect(screen.getAllByText(/Population zero/i)).toHaveLength(6)
+    expect(screen.getAllByText(/Population zero/i)).toHaveLength(5)
     expect(screen.getByTestId('Mock Showcase')).toBeInTheDocument()
   })
 

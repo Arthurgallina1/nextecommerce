@@ -6,6 +6,7 @@ import GameCardSlider from '.'
 
 const items = [
   {
+    id: '1',
     title: 'Population Zero',
     developer: 'Rockstar Games',
     slug: 'population-zero',
@@ -14,6 +15,7 @@ const items = [
     promotionalPrice: 215
   },
   {
+    id: '2',
     title: 'Population Zero',
     developer: 'Rockstar Games',
     slug: 'population-zero',
@@ -22,6 +24,7 @@ const items = [
     promotionalPrice: 215
   },
   {
+    id: '3',
     title: 'Population Zero',
     developer: 'Rockstar Games',
     slug: 'population-zero',
@@ -30,6 +33,7 @@ const items = [
     promotionalPrice: 215
   },
   {
+    id: '4',
     title: 'Population Zero',
     developer: 'Rockstar Games',
     slug: 'population-zero',
@@ -38,6 +42,7 @@ const items = [
     promotionalPrice: 215
   },
   {
+    id: '5',
     title: 'Population Zero',
     developer: 'Rockstar Games',
     slug: 'population-zero',
