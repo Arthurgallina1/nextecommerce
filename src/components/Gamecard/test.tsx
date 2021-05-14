@@ -4,6 +4,7 @@ import { renderWithTheme } from '../../utils/tests/helpers'
 import Gamecard from './index'
 
 const props = {
+  id: '1',
   title: 'Red Dead Redemption',
   developer: 'Rockstar Games',
   img: '/img/red-dead-img.jpg',
