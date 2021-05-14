@@ -81,6 +81,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         'https://source.unsplash.com/user/willianjusten/1042x580' ||
         `http://localhost:1337${game.cover?.src}`,
       gameInfo: {
+        id: game.id,
         title: game.name,
         price: game.price,
         description: game.short_description
