@@ -62,7 +62,7 @@ const FormSignUp = () => {
         />
         <TextField
           name="confirm-password"
-          placeholder="Confirm passwor"
+          placeholder="Confirm password"
           type="password"
           icon={<Lock />}
         />
