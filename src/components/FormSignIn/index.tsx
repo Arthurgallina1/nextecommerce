@@ -7,7 +7,7 @@ import { Email, Lock } from '@styled-icons/material-outlined'
 
 import Button from 'components/Button'
 import TextField from 'components/TextField'
-import { FormWrapper, FormLink } from 'components/Form'
+import { FormWrapper, FormLink, FormLoading } from 'components/Form'
 
 import * as S from './styles'
 
@@ -17,6 +17,7 @@ const FormSignIn = () => {
     username: '',
     password: ''
   })
+  const [loading, setLoading] = useState(false)
 
   const handleInputChange = (field: string, value: string) => {
     setValues((oldValues) => ({ ...oldValues, [field]: value }))
@@ -24,6 +25,7 @@ const FormSignIn = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
+    setLoading(true)
 
     const result = await signIn('credentials', {
       ...values,
@@ -35,6 +37,7 @@ const FormSignIn = () => {
       return push(result?.url)
     }
 
+    setLoading(false)
     console.error('email ou senha invalido')
   }
 
@@ -58,8 +61,8 @@ const FormSignIn = () => {
 
         <S.ForgotPassword href="#">Forgot your password?</S.ForgotPassword>
 
-        <Button type="submit" size="large" fullWidth>
-          Sign in now
+        <Button type="submit" size="large" fullWidth disabled={loading}>
+          {loading ? <FormLoading /> : <span>Sign in now</span>}
         </Button>
         <FormLink>
           Don't have an account? <Link href="/sign-up">Sign up</Link>
