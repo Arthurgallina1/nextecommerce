@@ -1,16 +1,24 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react'
 import Link from 'next/link'
-import { Email, Lock, AccountCircle } from '@styled-icons/material-outlined'
+import {
+  Email,
+  Lock,
+  AccountCircle,
+  ErrorOutline
+} from '@styled-icons/material-outlined'
 import Button from 'components/Button'
 import TextField from 'components/TextField'
-import { FormWrapper, FormLink, FormLoading } from 'components/Form'
+import { FormWrapper, FormLink, FormLoading, FormError } from 'components/Form'
 import { UsersPermissionsRegisterInput } from 'graphql/generated/globalTypes'
 import { useMutation } from '@apollo/client'
 import { MUTATION_REGISTER } from 'graphql/mutations/register'
 import { signIn } from 'next-auth/client'
+import { FieldErrors, signUpValidate } from 'utils/validations'
 
 const FormSignUp = () => {
+  const [formError, setFormError] = useState('')
+  const [fieldError, setFieldError] = useState<FieldErrors>({})
   const [values, setValues] = useState<UsersPermissionsRegisterInput>({
     username: '',
     email: '',
@@ -18,9 +26,13 @@ const FormSignUp = () => {
   })
 
   const [createUser, { error, loading }] = useMutation(MUTATION_REGISTER, {
-    onError: (err) => console.error(err),
+    onError: (err) => {
+      setFormError(
+        err?.graphQLErrors[0]?.extensions?.exception.data.message[0].messages[0]
+          .message
+      )
+    },
     onCompleted: () => {
-      console.log('created')
       !error &&
         signIn('credentials', {
           email: values.email,
@@ -37,6 +49,17 @@ const FormSignUp = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
 
+    setFormError('')
+
+    const errors = signUpValidate(values)
+
+    if (Object.keys(errors).length) {
+      setFieldError(errors)
+      return
+    }
+
+    setFieldError({})
+
     createUser({
       variables: {
         input: {
@@ -50,12 +73,18 @@ const FormSignUp = () => {
 
   return (
     <FormWrapper>
+      {!!formError && (
+        <FormError>
+          <ErrorOutline /> {formError}
+        </FormError>
+      )}
       <form onSubmit={handleSubmit}>
         <TextField
           name="username"
           placeholder="Username"
           type="text"
           onInputChange={(v) => handleInputChange('username', v)}
+          error={fieldError?.username}
           icon={<AccountCircle />}
         />
         <TextField
@@ -63,6 +92,7 @@ const FormSignUp = () => {
           placeholder="Email"
           type="email"
           onInputChange={(v) => handleInputChange('email', v)}
+          error={fieldError?.email}
           icon={<Email />}
         />
         <TextField
@@ -70,12 +100,15 @@ const FormSignUp = () => {
           placeholder="Password"
           type="password"
           onInputChange={(v) => handleInputChange('password', v)}
+          error={fieldError?.password}
           icon={<Lock />}
         />
         <TextField
           name="confirm-password"
           placeholder="Confirm password"
           type="password"
+          error={fieldError?.confirm_password}
+          onInputChange={(v) => handleInputChange('confirm_password', v)}
           icon={<Lock />}
         />
 

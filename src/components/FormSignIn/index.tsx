@@ -7,14 +7,20 @@ import { Email, Lock } from '@styled-icons/material-outlined'
 
 import Button from 'components/Button'
 import TextField from 'components/TextField'
-import { FormWrapper, FormLink, FormLoading } from 'components/Form'
+import { FormWrapper, FormLink, FormLoading, FormError } from 'components/Form'
 
 import * as S from './styles'
+import { FieldErrors, signInValidate } from 'utils/validations'
 
 const FormSignIn = () => {
   const { push } = useRouter()
+  const [formError, setFormError] = useState('')
+  const [fieldError, setFieldError] = useState<FieldErrors>({
+    email: '',
+    password: ''
+  })
   const [values, setValues] = useState({
-    username: '',
+    email: '',
     password: ''
   })
   const [loading, setLoading] = useState(false)
@@ -27,6 +33,16 @@ const FormSignIn = () => {
     event.preventDefault()
     setLoading(true)
 
+    const errors = signInValidate(values)
+
+    if (Object.keys(errors).length) {
+      setFieldError(errors)
+      setLoading(false)
+      return
+    }
+
+    setFieldError({})
+
     const result = await signIn('credentials', {
       ...values,
       redirect: false,
@@ -38,17 +54,20 @@ const FormSignIn = () => {
     }
 
     setLoading(false)
-    console.error('email ou senha invalido')
+
+    setFormError('Username or password invalid.')
   }
 
   return (
     <FormWrapper>
+      {!!formError && <FormError>{formError}</FormError>}
       <form onSubmit={handleSubmit}>
         <TextField
           name="email"
           placeholder="Email"
           onInputChange={(v) => handleInputChange('email', v)}
           type="email"
+          error={fieldError?.email}
           icon={<Email />}
         />
         <TextField
@@ -56,6 +75,7 @@ const FormSignIn = () => {
           onInputChange={(v) => handleInputChange('password', v)}
           placeholder="Password"
           type="password"
+          error={fieldError?.password}
           icon={<Lock />}
         />
 
