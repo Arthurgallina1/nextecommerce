@@ -15,7 +15,7 @@ const Base = ({ children }: BaseTemplatesProps) => {
   return (
     <S.Wrapper>
       <Container>
-        <Menu username={session?.user.name} />
+        <Menu username={session?.user?.name} />
       </Container>
 
       <S.Content>{children}</S.Content>
