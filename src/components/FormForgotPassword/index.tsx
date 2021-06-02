@@ -8,7 +8,7 @@ import Button from 'components/Button'
 import TextField from 'components/TextField'
 import { FormWrapper, FormLoading, FormError } from 'components/Form'
 
-import { FieldErrors, signInValidate } from 'utils/validations'
+import { FieldErrors, forgotValidate } from 'utils/validations'
 
 const FormForgotPassword = () => {
   const routes = useRouter()
@@ -30,7 +30,7 @@ const FormForgotPassword = () => {
     event.preventDefault()
     setLoading(true)
 
-    const errors = {} //signInValidate(values)
+    const errors = forgotValidate(values)
 
     if (Object.keys(errors).length) {
       setFieldError(errors)

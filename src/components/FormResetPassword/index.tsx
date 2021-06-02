@@ -8,7 +8,7 @@ import Button from 'components/Button'
 import TextField from 'components/TextField'
 import { FormWrapper, FormLoading, FormError } from 'components/Form'
 
-import { FieldErrors, signInValidate } from 'utils/validations'
+import { FieldErrors, resetValidate, signInValidate } from 'utils/validations'
 
 const FormForgotPassword = () => {
   const routes = useRouter()
@@ -16,11 +16,11 @@ const FormForgotPassword = () => {
   const [formError, setFormError] = useState('')
   const [fieldError, setFieldError] = useState<FieldErrors>({
     password: '',
-    confirmPassword: ''
+    confirm_password: ''
   })
   const [values, setValues] = useState({
     password: '',
-    confirmPassword: ''
+    confirm_password: ''
   })
   const [loading, setLoading] = useState(false)
 
@@ -32,7 +32,7 @@ const FormForgotPassword = () => {
     event.preventDefault()
     setLoading(true)
 
-    const errors = {} //signInValidate(values)
+    const errors = resetValidate(values)
 
     if (Object.keys(errors).length) {
       setFieldError(errors)
@@ -74,7 +74,7 @@ const FormForgotPassword = () => {
           placeholder="Confirm password"
           type="password"
           error={fieldError?.confirm_password}
-          onInputChange={(v) => handleInputChange('confirmPassword', v)}
+          onInputChange={(v) => handleInputChange('confirm_password', v)}
           icon={<Lock />}
         />
 
