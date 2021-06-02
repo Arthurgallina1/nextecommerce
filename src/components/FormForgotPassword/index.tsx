@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import {
   CheckCircleOutline,
   Email,
@@ -17,13 +18,14 @@ import {
 import { FieldErrors, forgotValidate } from 'utils/validations'
 
 const FormForgotPassword = () => {
+  const { query } = useRouter()
   const [success, setSuccess] = useState(false)
   const [formError, setFormError] = useState('')
   const [fieldError, setFieldError] = useState<FieldErrors>({
     email: ''
   })
   const [values, setValues] = useState({
-    email: ''
+    email: (query.email as string) || ''
   })
   const [loading, setLoading] = useState(false)
 
@@ -89,6 +91,7 @@ const FormForgotPassword = () => {
               onInputChange={(v) => handleInputChange('email', v)}
               type="email"
               error={fieldError?.email}
+              initialValue={query.email as string}
               icon={<Email />}
             />
 
