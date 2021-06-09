@@ -10,7 +10,7 @@ import { FormWrapper, FormLoading, FormError } from 'components/Form'
 import { FieldErrors, resetValidate } from 'utils/validations'
 import { signIn } from 'next-auth/client'
 
-const FormForgotPassword = () => {
+const FormResetPassword = () => {
   const { query } = useRouter()
   const [formError, setFormError] = useState('')
   const [fieldError, setFieldError] = useState<FieldErrors>({
@@ -105,4 +105,4 @@ const FormForgotPassword = () => {
   )
 }
 
-export default FormForgotPassword
+export default FormResetPassword
