@@ -1,6 +1,5 @@
-import { createContext, useContext } from 'react'
-
 import { GamecardProps } from 'components/Gamecard'
+import { createContext, useContext } from 'react'
 
 export type WishlistContextData = {
   items: GamecardProps[]
@@ -23,30 +22,29 @@ export const WishlistContext = createContext<WishlistContextData>(
 )
 
 export type WishlistProviderProps = {
-    children: React.ReactNode
-  }
-  
-  
-
+  children: React.ReactNode
+}
 
 const WishlistProvider = ({ children }: WishlistProviderProps) => {
-    const isInWishlist = (id: string) => false
-    const addToWishlist = (id: string) => {}
-    const removeFromWishlist = (id: string) => {}
-  
-    return (
-      <WishlistContext.Provider
-        value={{
-          isInWishlist,
-          addToWishlist,
-          removeFromWishlist
-        }}
-      >
-        {children}
-      </WishlistContext.Provider>
-    )
-  }
-  
-  const useWishlist = () => useContext(WishlistContext)
-  
-  export { WishlistProvider, useWishlist }
+  const isInWishlist = (id: string) => false
+  const addToWishlist = (id: string) => {}
+  const removeFromWishlist = (id: string) => {}
+
+  return (
+    <WishlistContext.Provider
+      value={{
+        items: [],
+        loading: false,
+        isInWishlist,
+        addToWishlist,
+        removeFromWishlist
+      }}
+    >
+      {children}
+    </WishlistContext.Provider>
+  )
+}
+
+const useWishlist = () => useContext(WishlistContext)
+
+export { WishlistProvider, useWishlist }
