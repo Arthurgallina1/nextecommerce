@@ -61,6 +61,9 @@ export const Wrapper = styled.button<WrapperProps>`
     border-radius: ${theme.border.radius};
     padding: ${theme.spacings.xxsmall};
     text-decoration: none;
+    &:focus {
+      outline: none;
+    }
     &:hover {
       background: ${minimal
         ? 'none'
