@@ -1,3 +1,4 @@
+import 'session.mock'
 import 'match-media-mock'
 import { screen } from '@testing-library/react'
 import { renderWithTheme } from 'utils/tests/helpers'
@@ -6,7 +7,6 @@ import Wishlist from '.'
 
 import gamesMock from 'components/GameCardSlider/mock'
 import highlightMock from 'components/Highlight/mock'
-import { execOnce } from 'next/dist/next-server/lib/utils'
 
 const props = {
   games: gamesMock,
