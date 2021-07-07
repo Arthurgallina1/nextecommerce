@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react'
 import { renderWithTheme } from 'utils/tests/helpers'
 
 import CardsList from './index'
-import cardsMock from 'components/PaymentOptions/mock'
+import cardsMock from 'components/PaymentForm/mock'
 
 describe('CardsList', () => {
   it('should render the cards list', () => {

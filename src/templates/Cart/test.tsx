@@ -4,12 +4,10 @@ import { renderWithTheme } from 'utils/tests/helpers'
 
 import gamesMock from 'components/GameCardSlider/mock'
 import highlightMock from 'components/Highlight/mock'
-import cardsMock from 'components/PaymentOptions/mock'
 
 import Cart from '.'
 
 const props = {
-  cards: cardsMock,
   recommendedHighlight: highlightMock,
   recommendedGames: gamesMock
 }
