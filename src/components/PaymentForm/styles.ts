@@ -6,6 +6,7 @@ import * as ButtonStyles from 'components/Button/styles'
 export const Wrapper = styled.main`
   ${({ theme }) => css`
     background: ${theme.colors.white};
+    max-height: 220px;
   `}
 `
 
@@ -38,5 +39,11 @@ export const Error = styled.p`
     padding-top: ${theme.spacings.xsmall};
     display: flex;
     align-items: center;
+  `}
+`
+
+export const FreeGames = styled.p`
+  ${({ theme }) => css`
+    color: ${theme.colors.black};
   `}
 `
