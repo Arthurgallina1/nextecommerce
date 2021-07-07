@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { StripeCardElementChangeEvent } from '@stripe/stripe-js'
 import { ErrorOutline, ShoppingCart } from '@styled-icons/material-outlined'
@@ -18,6 +19,7 @@ type PaymentFormProps = {
 
 const PaymentForm = ({ session }: PaymentFormProps) => {
   const { items } = useCart()
+  const { push } = useRouter()
   const stripe = useStripe()
   const elements = useElements()
   const [error, setError] = useState<string | null>(null)
@@ -31,9 +33,10 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
       if (items.length) {
         setFreeGames(false)
         const data = await createPaymentIntent({ items, token: session.jwt })
-
         if (data.freeGames) {
           setFreeGames(true)
+          setError('')
+          setDisabled(false)
           return
         }
 
@@ -57,6 +60,13 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     event.preventDefault()
     setLoading(true)
 
+    if (freeGames) {
+      //save on DB
+      //redir
+      push('/success')
+      return
+    }
+
     const payload = await stripe!.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements!.getElement(CardElement)!
@@ -70,7 +80,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
       setError(null)
       setLoading(false)
 
-      console.log('comprado')
+      push('/success')
     }
   }
 
