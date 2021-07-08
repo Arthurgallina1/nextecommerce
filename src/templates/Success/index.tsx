@@ -25,9 +25,9 @@ const Success = ({
 }: SuccessTemplateProps) => {
   const { clearCart } = useCart()
 
-  useEffect(() => {
-    clearCart()
-  }, [clearCart])
+  // useEffect(() => {
+  //   clearCart()
+  // }, [])
 
   return (
     <Base>
