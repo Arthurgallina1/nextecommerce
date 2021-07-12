@@ -33,12 +33,12 @@ jest.mock('components/CartList', () => ({
   }
 }))
 
-jest.mock('components/PaymentOptions', () => ({
-  __esModule: true,
-  default: function Mock() {
-    return <div data-testid="Mock PaymentOptions" />
-  }
-}))
+// jest.mock('components/PaymentOptions', () => ({
+//   __esModule: true,
+//   default: function Mock() {
+//     return <div data-testid="Mock PaymentOptions" />
+//   }
+// }))
 
 jest.mock('components/Empty', () => ({
   __esModule: true,
