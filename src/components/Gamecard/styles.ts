@@ -14,6 +14,8 @@ export const Wrapper = styled.article`
 `
 
 export const ImageBox = styled.a`
+  min-height: 14rem;
+  position: relative;
   border-radius: 6px 6px 0 0;
   height: 14rem;
   width: 100%;
@@ -28,8 +30,6 @@ export const ImageBox = styled.a`
   background-size: 80rem 14rem;
   animation: placeholderShimmer 1s linear infinite forwards;
   img {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
     border-radius: 6px 6px 0 0;
   }

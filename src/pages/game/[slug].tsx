@@ -19,6 +19,7 @@ import {
   QueryUpcomingVariables
 } from 'graphql/generated/QueryUpcoming'
 import { QUERY_UPCOMING } from 'graphql/queries/upcoming'
+import { getImageUrl } from 'utils/getImageUrls'
 
 const apolloClient = initializeApollo()
 
@@ -87,7 +88,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         description: game.short_description
       },
       gallery: game.gallery.map((image) => ({
-        src: `http://localhost:1337${image.src}`,
+        src: `${getImageUrl(image.src)}`,
         label: image.label
       })),
       description: game.description,

@@ -10,6 +10,7 @@ import Base from 'templates/Base'
 import { parseQueryStringToFilter, parseQueryStringToWhere } from 'utils/filter'
 import * as S from './styles'
 import Empty from 'components/Empty'
+import { getImageUrl } from 'utils/getImageUrls'
 
 export type GamesTemplateProps = {
   filterItems: ItemProps[]
@@ -76,7 +77,7 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
                     developer={game.developers[0].name}
                     img={
                       'https://via.placeholder.com/150' ||
-                      `http://localhost:1337${game?.cover!.url}`
+                      `${getImageUrl(game?.cover!.url)}`
                     }
                     price={game.price}
                   />
