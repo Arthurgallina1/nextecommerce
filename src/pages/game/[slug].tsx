@@ -78,6 +78,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     revalidate: 60 * 60,
     props: {
+      slug: params?.slug,
       cover:
         'https://source.unsplash.com/user/willianjusten/1042x580' ||
         `http://localhost:1337${game.cover?.src}`,

@@ -12,21 +12,13 @@ describe('Form', () => {
       </FormWrapper>
     )
     expect(container.parentElement).toMatchInlineSnapshot(`
-      .c0 .sc-eCssSg {
-        margin: 0.8rem 0;
-      }
-
-      .c0 .sc-gKsewC {
-        margin: 3.2rem auto 1.6rem;
-      }
-
-      .c1 {
+      .c0 {
         font-size: 1.4rem;
         color: #030517;
         text-align: center;
       }
 
-      .c1 a {
+      .c0 a {
         color: #3CD3C1;
         -webkit-text-decoration: none;
         text-decoration: none;
@@ -35,7 +27,7 @@ describe('Form', () => {
         transition: color,border,0.1s ease-in-out;
       }
 
-      .c1 a:hover {
+      .c0 a:hover {
         color: #29b3a3;
         border-bottom: 0.1rem solid #29b3a3;
       }
@@ -43,10 +35,10 @@ describe('Form', () => {
       <body>
         <div>
           <div
-            class="c0"
+            class=""
           >
             <div
-              class="c1"
+              class="c0"
             >
               My nice 
               <a
