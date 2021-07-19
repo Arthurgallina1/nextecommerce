@@ -1,10 +1,14 @@
 import NextNprogress from 'nextjs-progressbar'
+
+import { DefaultSeo } from 'next-seo'
+import SEO from '../../next-seo.config'
+
 import { Provider as AuthProvider } from 'next-auth/client'
 import { ApolloProvider } from '@apollo/client'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
-import { ThemeProvider } from 'styled-components'
 
+import { ThemeProvider } from 'styled-components'
 import { CartProvider } from 'hooks/use-cart'
 import GlobalStyles from 'styles/global'
 import theme from 'styles/theme'
@@ -30,6 +34,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 />
                 <link rel="manifest" href="/manifest.json" />
               </Head>
+              <DefaultSeo {...SEO} />
               <GlobalStyles />
               <NextNprogress
                 color="#F231A5"
