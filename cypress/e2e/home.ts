@@ -4,9 +4,9 @@
 describe('Home Page', () => {
   it('should render home section', () => {
     cy.visit('/')
-    cy.get('.slick-slider').within(() => {
-      cy.findByRole('heading', { name: /new test banner/i })
-      cy.findByRole('link', { name: /buy now/i })
-    })
+    cy.shouldRenderBanner()
+    cy.shouldRenderShowcase({ name: 'New Games' })
+    cy.shouldRenderShowcase({ name: 'Popular Games' })
+    cy.shouldRenderShowcase({ name: 'Upcoming Games' })
   })
 })
