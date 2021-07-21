@@ -28,6 +28,10 @@ import '@testing-library/cypress/add-commands'
 
 Cypress.Commands.add('google', () => cy.visit('https://google.com'))
 
+Cypress.Commands.add('getDataByCy', (selector, ...args) => {
+  return cy.get(`[data-cy=${selector}]`, ...args)
+})
+
 Cypress.Commands.add('shouldRenderBanner', () => {
   cy.get('.slick-slider').within(() => {
     cy.findByRole('heading', { name: /new test banner/i })
@@ -42,7 +46,16 @@ Cypress.Commands.add('shouldRenderBanner', () => {
 })
 
 Cypress.Commands.add('shouldRenderShowcase', ({ name, highlight = false }) => {
-  cy.get(`[data-cy="${name}"]`).within(() => {
+  cy.getDataByCy(`"${name}"`).within(() => {
     cy.findByRole('heading', { name }).should('exist')
+    cy.getDataByCy('highlight').should(highlight ? 'exist' : 'not.exist')
+
+    if (highlight) {
+      cy.getDataByCy('highlight').within(() => {
+        cy.findByRole('link').should('have.attr', 'href')
+      })
+    }
+
+    cy.getDataByCy('game-card').should('have.length.gt', 0)
   })
 })
