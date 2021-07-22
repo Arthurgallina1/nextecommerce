@@ -20,6 +20,15 @@ describe('Game Page', () => {
         //   'have.length.gt',
         //   0
         // )
+
+        // content
+
+        // content
+        cy.getDataByCy('content').within(() => {
+          cy.findByRole('heading', { name: /description/i }).should('exist')
+        })
+
+        cy.getDataByCy('content').children().should('have.length.at.least', 2)
       }
     })
   })

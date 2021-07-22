@@ -9,7 +9,7 @@ export type TextContentProps = {
 // create sanitize method for the __html content
 
 const TextContent = ({ title, content }: TextContentProps) => (
-  <S.Wrapper>
+  <S.Wrapper data-cy="content">
     {!!title && (
       <Heading lineLeft lineColor="secondary">
         {title}
