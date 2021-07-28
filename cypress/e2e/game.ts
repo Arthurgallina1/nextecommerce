@@ -6,7 +6,7 @@ describe('Game Page', () => {
     cy.visit('/game/ghostrunner')
   })
 
-  it.skip('should render game page sections', () => {
+  it('should render game page sections', () => {
     cy.getByDataCy('game-info').within(() => {
       {
         cy.findByRole('heading', { name: /ghostrunner/i }).should('exist')
