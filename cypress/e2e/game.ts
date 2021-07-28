@@ -2,9 +2,11 @@
 // referencia necessario para ter comandos da RTL e custom
 
 describe('Game Page', () => {
-  it('should render game page sections', () => {
+  before(() => {
     cy.visit('/game/ghostrunner')
+  })
 
+  it.skip('should render game page sections', () => {
     cy.getByDataCy('game-info').within(() => {
       {
         cy.findByRole('heading', { name: /ghostrunner/i }).should('exist')
@@ -14,8 +16,6 @@ describe('Game Page', () => {
         )
         cy.findByText('$49.49').should('exist')
         cy.findByRole('button', { name: /Add to cart/i }).should('exist')
-
-        // gallery
       }
     })
 
@@ -51,6 +51,26 @@ describe('Game Page', () => {
     cy.shouldRenderShowcase({
       name: 'You may like these games',
       highlight: false
+    })
+  })
+
+  it('should add/remove game in cart', () => {
+    cy.getByDataCy('game-info').within(() => {
+      cy.findByRole('button', { name: /Add to cart/i }).click()
+      cy.findByRole('button', { name: /remove from cart/i }).should('exist')
+    })
+
+    cy.findAllByLabelText(/cart items/i)
+      .first()
+      .should('have.text', 1)
+      .click()
+
+    cy.getByDataCy('cart-list').within(() => {
+      cy.findByRole('heading', { name: /ghostrunner/i }).should('exist')
+
+      //remove item
+      cy.findByText(/remove/i).click()
+      cy.findByRole('heading', { name: /your cart is empty/i }).should('exist')
     })
   })
 })
