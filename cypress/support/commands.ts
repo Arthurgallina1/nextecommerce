@@ -25,6 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import '@testing-library/cypress/add-commands'
+import { User } from './generate'
 
 Cypress.Commands.add('google', () => cy.visit('https://google.com'))
 
@@ -81,3 +82,20 @@ Cypress.Commands.add('shouldBeLessThan', (value) => {
     .then(parseFloat)
     .should('be.lt', value)
 })
+
+Cypress.Commands.add('signUp', (user: User) => {
+  cy.findByPlaceholderText(/username/i).type(user.username)
+  cy.findByPlaceholderText(/email/i).type(user.email)
+  cy.findByPlaceholderText(/^password/i).type(user.password)
+  cy.findByPlaceholderText(/confirm password/i).type(user.password)
+  cy.findByRole('button', { name: /sign up now/i }).click()
+})
+
+Cypress.Commands.add(
+  'signIn',
+  (email = 'teste@com.br', password = '123456') => {
+    cy.findByPlaceholderText(/email/i).type(email)
+    cy.findByPlaceholderText(/password/i).type(password)
+    cy.findByRole('button', { name: /sign in now/i }).click()
+  }
+)

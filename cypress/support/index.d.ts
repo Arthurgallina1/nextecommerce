@@ -6,6 +6,12 @@ type ShowcaseAttrbiutes = {
   highlight?: boolean
 }
 
+type User = {
+  username: string
+  password: string
+  email: string
+}
+
 type FieldsAttributes = {
   label: string
   name: string | number
@@ -17,6 +23,18 @@ declare namespace Cypress {
      * @example cy.google()
      */
     google(): Chainable<Window>
+
+    /**
+     * Custom command to sign up
+     * @example cy.shouldBeGreaterThan(100)
+     */
+    signUp(user: User): Chainable<Element>
+
+    /**
+     * Custom command to sign in
+     * @example cy.shouldBeGreaterThan(100)
+     */
+    signIn(email?: string, password?: string): Chainable<Element>
 
     /**
      * Custom command to get elemt by data-ct values
