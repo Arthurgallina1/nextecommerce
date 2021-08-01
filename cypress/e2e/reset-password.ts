@@ -41,7 +41,7 @@ describe('Reset Password', () => {
     cy.findByText(/Incorrect code provided/i).should('exist')
   })
   //happy path => signIn the user
-  it.only('should be able to reset password and be redirected to homepage', () => {
+  it('should be able to reset password and be redirected to homepage', () => {
     // rota do credentials do next-auth
     cy.intercept('POST', '**/auth/callback/credentials*', {
       statusCode: 200,
