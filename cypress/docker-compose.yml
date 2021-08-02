@@ -2,7 +2,7 @@ version: '3'
 
 services:
   api:
-    container_name: upgames_api
+    container_name: wongames_api
     image: wongames/api:latest
     environment:
       DATABASE_HOST: db
@@ -16,7 +16,7 @@ services:
     depends_on:
       - db
   db:
-    container_name: upgames_db
+    container_name: wongames_db
     image: wongames/database:latest
     ports:
       - '5432:5432'
