@@ -1,15 +1,15 @@
 # Next E-commerce
 
 
-## WIP
-
-This is Next e-commerce in progress.
-
 ## Features
 
 - Login & Auth
 - Cart
 - Wishlist
+- Stripe payment
+- CMS 
+- HIGH UNIT TESTS COVERAGE 
+- E2E TESTS
 
 
 ## Techs
